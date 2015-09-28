@@ -70,66 +70,6 @@ public class randomizer {
 	    return temp; 
 	}
 	
-	
-	private class Position{
-		
-		/**The y coordinate.**/
-		private int y;
-		
-		/**The x coordinate.**/
-		private int x;
-		
-		/*************************************************************
-		 * An object to store the position within the regular array.
-		 * @param x
-		 * The x coordinate of the grid.
-		 * @param y
-		 * The y coordinate of the grid.
-		 ************************************************************/
-		Position(int x, int y){
-			this.y = y;
-			this.x = x;
-		}
-		
-		public String toString(){
-			return "x: "+x+" y: "+y+"\n";
-		}
-		
-		/*************************************************************
-		 * Sets the value of the y coordinate.
-		 * @param pY
-		 *************************************************************/
-		void setY(int pY){
-			y = pY;
-		}
-		
-		/*************************************************************
-		 * Sets the value of the x coordinate.
-		 * @param pY
-		 *************************************************************/
-		void setX(int pX){
-			x = pX;
-		}
-		
-		
-		/*************************************************************
-		 * Gets the value of the x coordinate.
-		 * @param pY
-		 *************************************************************/
-		int getX(){
-			return x;
-		}
-		
-		/*************************************************************
-		 * Gets the value of the y coordinate.
-		 * @param pY
-		 *************************************************************/
-		int getY(){
-			return y;
-		}
-	}
-	
-	
 	public static void main(String args[]){
 		int[][] arr = new int[9][9];
 		
