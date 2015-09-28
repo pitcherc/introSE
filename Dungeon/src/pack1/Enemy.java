@@ -16,6 +16,11 @@ public abstract class Enemy {
 	}
 	public abstract void attack();
 
+	public String getMessage(){
+		return message;
+	}
+	
+	
 	public Boolean getIsPowered() {
 		return isPowered;
 	}
