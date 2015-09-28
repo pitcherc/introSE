@@ -16,7 +16,7 @@ public class Position {
 	  y = newY;
   }
   
-  public int getx(){
+  public int getX(){
 	return x;  
   }
   
