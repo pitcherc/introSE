@@ -1,25 +1,30 @@
 package pack1;
 
-public abstract class Enemy {
+import java.util.Random;
+
+public class Enemy {
 	private int health;
 	private int power;
 	private int speed;
 	private Boolean isPowered;
 	private String message;
-
-	Enemy(int health, int power, int speed){
-		this.health = health;
-		this.power = power;
-		this.speed = speed;
+	private Random r;
+	
+	Enemy(){
+		this.health = 1;
+		this.power = 1;
+		this.speed = 1;
 		isPowered = false;
 		message = "";
+		Random r = new Random();
 	}
-	public abstract void attack();
+	public int attack(){
+		return power + r.nextInt(3);		
+	}
 
 	public String getMessage(){
 		return message;
-	}
-	
+	}	
 	
 	public Boolean getIsPowered() {
 		return isPowered;

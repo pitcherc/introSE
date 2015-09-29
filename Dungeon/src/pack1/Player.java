@@ -1,5 +1,6 @@
 package pack1;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
@@ -18,6 +19,8 @@ public class Player {
 
 	private int potions;
 	
+	private ArrayList<Item> items;
+	
 	Random r;
 
 	Player(){
@@ -29,7 +32,21 @@ public class Player {
 		equip = null;
 		r = new Random();
 		pos = new Position(0,0);
+		items = new ArrayList<Item>();
+		//modify these values later...
+		configItems();
+		
 	}
+
+
+
+	private void configItems() {
+		items.add(new Item("Weak Sword", 1,1,1,11));
+		items.add(new Item("Small Potion",1,1,1,5));
+		items.add(new Item("Bannanas",1,1,1,11));
+	}
+	
+	
 	
 	void usePotion(){
 		if(potions > 0){
