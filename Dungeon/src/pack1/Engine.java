@@ -128,6 +128,7 @@ public class Engine implements Serializable{
 			gp = GmPn.FIGHT;
 			enemy.setHealth((8) * (player.getLevel()));
 			enemy.setPower(1 + player.getLevel());
+			return "A MONSTER\nHEALTH: " + enemy.getHealth() + "\nPOWER: " + enemy.getPower();
 		}
 		// floor[p.getX()][p.getY()].getChest();
 
