@@ -1,7 +1,13 @@
 package pack1;
 
-public class Equiptment {
+import java.io.Serializable;
+
+public class Equiptment implements Serializable{
+	
+	private static final long serialVersionUID = 7380859524928144366L;
+	
 	private int health;
+	
 	public int getHealth() {
 		return health;
 	}

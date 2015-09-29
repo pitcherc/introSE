@@ -1,9 +1,12 @@
 package pack1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Engine {
+public class Engine implements Serializable{
+
+	private static final long serialVersionUID = -6765701323665765528L;
 
 	private Room[][] floor;
 
@@ -11,11 +14,13 @@ public class Engine {
 
 	private GmPn gp;
 
-	Randomizer random;
+	Randomizer<Room> random;
 
 	Chest chest;
 
 	Enemy enemy;
+	
+	Random r = new Random();
 
 	Engine(){
 		player = new Player();
@@ -30,7 +35,7 @@ public class Engine {
 	}	
 
 	private void rand(ArrayList<Position> list){
-		Random r = new Random();
+
 		for( int i = 0 ; i < list.size()*.7 ; i++) {
 			int  j = r.nextInt(10) + 1;
 			Position p = list.get(i);
@@ -87,8 +92,31 @@ public class Engine {
 	}
 	
 	private String finalBoss(){
+		enemy = new Enemy(50, 5, 10);
 		
 		return "an enemy with power unlike any other";
+	}
+	
+	public String attack(){
+		int delt = player.attack();
+		int take = enemy.attack();
+		
+		enemy.take(delt);
+		
+		if(enemy.getHealth() <= 0){
+			gp = GmPn.IDLE;
+			return "you dealt " + delt + " damage, vanquishing the beast\n" ;
+		}
+		
+		player.take(take);
+		
+		if(player.getHealth() <= 0){
+			gp = GmPn.DEAD;
+			return "you were dealt " + take + " damage, and died\n" ;
+		}
+		
+		
+		return "you dealt " + delt + " damage and took "+ take + '\n';
 	}
 
 	private String explore(){
@@ -97,12 +125,17 @@ public class Engine {
 		enemy = floor[p.getX()][p.getY()].getEnemy();
 
 		if(enemy != null){
-			//enemy.setHealth();
-			//enemy.setPower(health);
+			gp = GmPn.FIGHT;
+			enemy.setHealth((8) * (player.getLevel()));
+			enemy.setPower(1 + player.getLevel());
 		}
-		//floor[p.getX()][p.getY()].getChest();
+		// floor[p.getX()][p.getY()].getChest();
 
 		return "nothing!\n";
+	}
+	
+	public GmPn getGameStatus(){
+		return gp;
 	}
 
 	//	public void battle(){

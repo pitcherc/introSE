@@ -1,8 +1,11 @@
 package pack1;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Chest {
+public class Chest implements Serializable{
+
+	private static final long serialVersionUID = 2330291883417118995L;
 
 	Equiptment[][] items;
 

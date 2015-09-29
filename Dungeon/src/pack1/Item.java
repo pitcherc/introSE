@@ -1,7 +1,11 @@
 package pack1;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable{
 	
+	private static final long serialVersionUID = 3200475997504780898L;
+
 	private String name; 
 	
 	private int health;
@@ -24,4 +28,47 @@ public class Item {
 		
 		duration = d;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public int getPower() {
+		return power;
+	}
+
+	public void setPower(int power) {
+		this.power = power;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+	
+	
+	
 }

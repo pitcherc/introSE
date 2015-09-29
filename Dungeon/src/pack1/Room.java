@@ -1,6 +1,10 @@
 package pack1;
 
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable{
+
+	private static final long serialVersionUID = -6533460215082102895L;
 
 	private Enemy enemy;
 	

@@ -1,8 +1,12 @@
 package pack1;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Enemy {
+public class Enemy implements Serializable{
+
+	private static final long serialVersionUID = -4698677585314996195L;
+
 	private int health;
 	private int power;
 	private int speed;
@@ -16,10 +20,24 @@ public class Enemy {
 		this.speed = 1;
 		isPowered = false;
 		message = "";
-		Random r = new Random();
+		r = new Random();
 	}
+	
+	Enemy(int h, int p, int s){
+		this.health = 1;
+		this.power = 1;
+		this.speed = 1;
+		isPowered = false;
+		message = "";
+		r = new Random();
+	}
+	
 	public int attack(){
 		return power + r.nextInt(3);		
+	}
+	
+	public void take(int damage){
+		health -= damage;
 	}
 
 	public String getMessage(){
