@@ -14,19 +14,28 @@ public class randomizer<E> {
 	 * from  
 	 * @param arr
 	 *****************************************************************/
-	randomizer(int[][] arr){
+	randomizer(E arr){
 		randomizer = new ArrayList();
-		this.randomizer = initArray(arr);
+		
+		if(arr instanceof Room){
+		   this.randomizer = roomArray((Room[][])arr);
+		}
+//		if(arr instanceof Stuff){
+//			//class another function
+//		}
+		else{
+			this.randomizer = intArray((int[][])arr);
+		}
 	}
 	
 	/******************************************************************
 	 * Initializes the randomizer array list with possible x y values. 
 	 * @param arr
-	 * The game 2d game board. 
+	 * The 2d array of possible Room coordinates. 
 	 * @return
 	 * an array of the x and y coordinates. 
 	 ******************************************************************/
-	private ArrayList<Position> initArray(int[][] arr){
+	private ArrayList<Position> roomArray(Room[][] arr){
 		for(int i = 0; i< arr.length; ++i){
 			for(int j = 0; j<arr[0].length; ++j){
 				randomizer.add(0, new Position(i, j));
@@ -34,6 +43,24 @@ public class randomizer<E> {
 		}
 		return randomizer;
 	}
+	
+	/******************************************************************
+	 * Initializes the randomizer array list with possible x y values. 
+	 * @param arr
+	 * An integer 2d array of the possible x and y values.  
+	 * @return
+	 * an array of the x and y coordinates. 
+	 ******************************************************************/
+	private ArrayList<Position> intArray(int[][] arr){
+		for(int i = 0; i< arr.length; ++i){
+			for(int j = 0; j<arr[0].length; ++j){
+				randomizer.add(0, new Position(i, j));
+			}
+		}
+		return randomizer;
+	}
+	
+	
 	
 	/******************************************************************
 	 * Prints the arralist of values
@@ -56,7 +83,7 @@ public class randomizer<E> {
 			int temp = randInt(i);
 			//swap the two values. aka shake up the box of possible x y coordinates. 
 			randomizer.set(i,  randomizer.get(temp)) ;
-			randomizer.set(temp, data);
+			randomizer.set(randInt(i), data);
 		}
 	}
 	
@@ -89,7 +116,10 @@ public class randomizer<E> {
 	public static void main(String args[]){
 		int[][] arr = new int[8][8];
 		randomizer<int[][]> temp = new randomizer<int[][]>(arr);
+		
 		//shuffle the values. 
+		temp.shuffle();
+		temp.shuffle();
 		temp.shuffle();
 		//print the values 
 		temp.print();
