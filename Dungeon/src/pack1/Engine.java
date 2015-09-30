@@ -19,7 +19,7 @@ public class Engine implements Serializable{
 	Chest chest;
 
 	Enemy enemy;
-
+	
 	Random r = new Random();
 
 	Engine(){
@@ -90,75 +90,33 @@ public class Engine implements Serializable{
 			return "You are blocked by a wall";	
 		}
 	}
-
+	
 	private String finalBoss(){
 		enemy = new Enemy(50, 5, 10);
-		floor[9][9].setEnemy(enemy);
-		return "\n an enemy with power unlike any other!!!\n";
+		
+		return "an enemy with power unlike any other";
 	}
-
+	
 	public String attack(){
 		int delt = player.attack();
-
+		int take = enemy.attack();
+		
 		enemy.take(delt);
-
+		
 		if(enemy.getHealth() <= 0){
 			gp = GmPn.IDLE;
-			floor[player.getPos().getX()][player.getPos().getY()].empty();
 			return "you dealt " + delt + " damage, vanquishing the beast\n" ;
-			
 		}
-
-		String message = enemyAttacks();
-
-		if(gp == GmPn.DEAD){
-			return message;
-		}
-
-		return "you dealt " + delt + " damage, and" + message ;
-	}
-
-	public String usePotion(){
 		
-		if(gp == GmPn.FIGHT){
-			if(player.getPotions() == 0){
-				return "you are out of potions! \nYou attack instead!\n" + attack(); 
-			}
-
-			player.usePotion();
-
-			String message = enemyAttacks();
-
-			if(gp == GmPn.DEAD){
-				return message;
-			}
-
-			return "you fully recovered but were hit and " + message ;
-		}
-		else
-			if(player.getPotions() == 0){
-				return "you're out of potions!\n";
-			}
-			else{
-				player.usePotion();
-				return"you have been fully healed!\n";
-			}
-	}
-
-	private String enemyAttacks(){
-		if(floor[player.getPos().getX()][player.getPos().getY()].getEnemy() == null ){
-			return "attack what?\n";
-		}
-		int take = enemy.attack();
-
 		player.take(take);
-
+		
 		if(player.getHealth() <= 0){
 			gp = GmPn.DEAD;
-			return"you were dealt " + take + " damage, and died\n" ;
+			return "you were dealt " + take + " damage, and died\n" ;
 		}
-
-		return 	" took "+ take + "damage\n";		
+		
+		
+		return "you dealt " + delt + " damage and took "+ take + '\n';
 	}
 
 	private String explore(){
@@ -168,32 +126,36 @@ public class Engine implements Serializable{
 
 		if(enemy != null){
 			gp = GmPn.FIGHT;
-			enemy.setHealth((5 +(r.nextInt(5))) * (player.getLevel()));
-			enemy.setPower( r.nextInt(1 + player.getLevel()) + 1);
-			return "A MONSTER\nHEALTH: " + enemy.getHealth() + "\nPOWER: " + enemy.getPower() + '\n';
+			enemy.setHealth((8) * (player.getLevel()));
+			enemy.setPower(1 + player.getLevel());
+			return "A MONSTER\nHEALTH: " + enemy.getHealth() + "\nPOWER: " + enemy.getPower();
 		}
 		// floor[p.getX()][p.getY()].getChest();
 
 		return "nothing!\n";
 	}
-
+	
 	/**Returns the Health of the player**/
 	int getPlayerHealth(){
 		return player.getHealth();
 	}
-
+	
 	int getPlayerMaxHealth(){
 		return player.getMax();
 	}
-
+	
 	/**Returns the Player object**/
 	Player getPlayer(){
 		return player;
 	}
-
+	
 	public GmPn getGameStatus(){
 		return gp;
 	}
 
-
+	//	public void battle(){
+	//		Enemy enemy = floor[player.getPos().getx()]
+	//				[player.getPos().getY()].getEnemy() 
+	//			
+	//	}
 }

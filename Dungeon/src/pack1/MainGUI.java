@@ -1,4 +1,4 @@
-package pack1;
+package package1;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.net.URL;
@@ -313,7 +313,7 @@ public class MainGUI extends Application {
    	    pHealth.setProgress(((double)game.getPlayerHealth()*5)/100);
         DecimalFormat df = new DecimalFormat("##.##");
         pHealthLabel.setText("Player Health: %"+(
-                                                 df.format( ( (double)game.getPlayerHealth()*5) ) ) );
+                                                 df.format( ( (double)game.getPlayerHealth()*5) /100) ) );
         gameStatus.appendText(game.usePotion());
     }
 }

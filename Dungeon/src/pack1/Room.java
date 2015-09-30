@@ -15,12 +15,6 @@ public class Room implements Serializable{
 		chest = null;
 	}
 	
-	void empty(){
-		enemy = null;
-		chest = null;
-		
-	}
-	
 	void setEnemy(Enemy e){
 		enemy = e;
 	}
