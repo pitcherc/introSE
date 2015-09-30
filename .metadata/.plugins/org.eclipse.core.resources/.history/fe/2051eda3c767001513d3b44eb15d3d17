@@ -93,8 +93,8 @@ public class Engine implements Serializable{
 
 	private String finalBoss(){
 		enemy = new Enemy(50, 5, 10);
-		floor[9][9].setEnemy(enemy);
-		return "\n an enemy with power unlike any other!!!\n";
+
+		return "an enemy with power unlike any other";
 	}
 
 	public String attack(){
