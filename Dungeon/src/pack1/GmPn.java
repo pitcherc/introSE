@@ -1,5 +1,7 @@
 package pack1;
 
-public enum GmPn {
+import java.io.Serializable;
+
+public enum GmPn implements Serializable{
 	IDLE, FIGHT, OPEN, DEAD, WIN
 }

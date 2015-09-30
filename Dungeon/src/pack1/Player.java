@@ -1,10 +1,15 @@
 package pack1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Player {
+public class Player implements Serializable{
 
+	private static final long serialVersionUID = -9121935087680792111L;
+
+	private int level;
+		
 	private int health;
 
 	private int curMaxHealth;
@@ -24,10 +29,11 @@ public class Player {
 	Random r;
 
 	Player(){
+		level = 1;
 		potions = 4;
 		curMaxHealth = 20;
 		health = curMaxHealth;
-		power = 5;
+		power = 3;
 		speed =2;
 		equip = null;
 		r = new Random();
@@ -60,6 +66,7 @@ public class Player {
 		power += 1 + r.nextInt(2);
 		speed += 2 + r.nextInt(2);
 		health = curMaxHealth;
+		level++;
 	}
 
 	void equipt(Equiptment e){
@@ -76,6 +83,14 @@ public class Player {
 		if(health > curMaxHealth){	
 			health = curMaxHealth;
 		}
+	}
+	
+	public void take(int damage){
+		health -= damage;
+	}
+	
+	public int attack(){
+		return level + r.nextInt(power);
 	}
 
 	public int getHealth() {
@@ -113,6 +128,15 @@ public class Player {
 	public Position getPos(){
 		return pos;	
 	}
+	
+	public void setLevel(int lev){
+		level = lev;
+	}
+	
+	public int getLevel(){
+		return level;
+	}
+	
 	public void move(char udrl){
 		int x = pos.getX();
 		int y = pos.getY();

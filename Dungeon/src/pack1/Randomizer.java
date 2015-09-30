@@ -1,9 +1,12 @@
 package pack1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Randomizer<E> {
+public class Randomizer<E> implements Serializable{
+	
+	private static final long serialVersionUID = -3115931060220953431L;
 	
 	private ArrayList <Position> randomizer;
 	
