@@ -135,6 +135,20 @@ public class Engine implements Serializable{
 		return "nothing!\n";
 	}
 	
+	/**Returns the Health of the player**/
+	int getPlayerHealth(){
+		return player.getHealth();
+	}
+	
+	int getPlayerMaxHealth(){
+		return player.getMax();
+	}
+	
+	/**Returns the Player object**/
+	Player getPlayer(){
+		return player;
+	}
+	
 	public GmPn getGameStatus(){
 		return gp;
 	}

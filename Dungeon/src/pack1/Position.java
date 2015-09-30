@@ -29,4 +29,8 @@ public class Position implements Serializable{
 	public int getY(){
 		return y;
 	}
+	
+	public String toString(){
+		return "x: "+getX()+" y: "+getY();
+	}
 }
