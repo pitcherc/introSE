@@ -125,6 +125,10 @@ public class Player implements Serializable{
 		return potions;
 	}
 	
+	public int getMax(){
+		return curMaxHealth;
+	}
+	
 	public Position getPos(){
 		return pos;	
 	}
