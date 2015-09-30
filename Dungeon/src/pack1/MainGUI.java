@@ -1,4 +1,4 @@
-package pack1;
+package package1;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.net.URL;
@@ -109,6 +109,8 @@ public class MainGUI extends Application {
         launch(args);
     }
     
+    
+    
     @Override
     public void start(Stage window) throws Exception {
         Engine game = new Engine();
@@ -186,7 +188,7 @@ public class MainGUI extends Application {
             if(movable){
                 movable = true;
                 gameStatus.appendText(game.move('d'));
-               playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
+                playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
                 
             }
         });
@@ -242,9 +244,7 @@ public class MainGUI extends Application {
         potion = new Button("Potion");
         potion.setMinSize(100, 50);
         potion.setOnAction(action -> {
-            pHealth.setProgress(((double)game.getPlayerHealth())/100);
-            DecimalFormat df = new DecimalFormat("##.##");
-            pHealthLabel.setText("Player Health: %"+(df.format(((double)game.getPlayerHealth())/100)));
+            callPotion(game);
         });
         centerbuttonpanel.getChildren().add(potion);
         GridPane.setConstraints(potion, 1, 0);
@@ -260,7 +260,8 @@ public class MainGUI extends Application {
         attack = new Button("Attack");
         attack.setMinSize(100,50);
         attack.setOnAction(action -> {
-       	gameStatus.appendText(game.attack());
+            
+            gameStatus.appendText(game.attack());
         });
         centerbuttonpanel.getChildren().add(attack);
         GridPane.setConstraints(attack, 1, 1);
@@ -305,5 +306,14 @@ public class MainGUI extends Application {
         Scene scene = new Scene(outmostborder,900, 600);
         window.setScene(scene);
         window.show();
-    }	
+    }
+    
+    
+    private void callPotion(Engine game){
+   	    pHealth.setProgress(((double)game.getPlayerHealth()*5)/100);
+        DecimalFormat df = new DecimalFormat("##.##");
+        pHealthLabel.setText("Player Health: %"+(
+                                                 df.format( ( (double)game.getPlayerHealth()*5) /100) ) );
+        gameStatus.appendText(game.usePotion());
+    }
 }
