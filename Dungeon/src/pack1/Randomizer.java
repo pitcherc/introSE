@@ -114,7 +114,7 @@ public class Randomizer<E> implements Serializable{
 		int temp = rand.nextInt(ceiling+1);
 	    return temp; 
 	}
-	
+	 
 	
 	public static void main(String args[]){
 		Room [][] r = new Room[5][5];

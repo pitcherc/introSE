@@ -1,19 +1,12 @@
 package pack1;
-import java.awt.image.BufferedImage;
-import java.io.InputStream;
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.concurrent.locks.Condition;
 
-import javax.imageio.ImageIO;
+import java.text.DecimalFormat;
+
 
 import javafx.application.Application;
-import javafx.application.ConditionalFeature;
-import javafx.geometry.Insets;
+
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,8 +29,6 @@ import javafx.stage.Stage;
  *********************************************************************/
 public class MainGUI extends Application {
     
-    /**The Game object**/
-    private ArrayList<String> game;
     
     /**The top MenuBar**/
     private MenuBar mnuBar;
