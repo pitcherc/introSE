@@ -142,7 +142,7 @@ public class MainGUI extends Application {
         outmostborder.setTop(mnuBar);
         
         VBox rightLayout = new VBox(20);
-        gameStatus = new TextArea("Game Status");
+        gameStatus = new TextArea("Game Status\n");
         gameStatus.setMaxHeight(250);
         gameStatus.setMaxWidth(300);
         
@@ -232,7 +232,7 @@ public class MainGUI extends Application {
         GridPane.setConstraints(inventory, 0,0);
         
         //Later change to the amount of potions remaining for the player
-        potion = new Button("Potion");
+        potion = new Button("Potion(" + game.getPotions() + ")");
         potion.setMinSize(100, 50);
         potion.setOnAction(action -> {
             callPotion(game);
@@ -253,6 +253,11 @@ public class MainGUI extends Application {
         attack.setOnAction(action -> {
             
             gameStatus.appendText(game.attack());
+            pHealth.setProgress(((double)game.getPlayerHealth())/
+            		            ((double)game.getPlayerMaxHealth()));
+            if(game.getGameStatus() == GmPn.IDLE){
+            	movable = true;
+            }
         });
         centerbuttonpanel.getChildren().add(attack);
         GridPane.setConstraints(attack, 1, 1);
@@ -301,10 +306,11 @@ public class MainGUI extends Application {
     
     
     private void callPotion(Engine game){
-   	    pHealth.setProgress(((double)game.getPlayerHealth()*5)/100);
+    	gameStatus.appendText(game.usePotion());
+   	    pHealth.setProgress(((double)game.getPlayerHealth())/((double)game.getPlayerMaxHealth()));
         DecimalFormat df = new DecimalFormat("##.##");
         pHealthLabel.setText("Player Health: %"+(
                                                  df.format( ( (double)game.getPlayerHealth()*5) ) ) );
-        gameStatus.appendText(game.usePotion());
+        potion.setText("potions(" + game.getPotions()+")");
     }
 }

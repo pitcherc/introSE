@@ -28,7 +28,6 @@ public class Engine implements Serializable{
 		configFloors();
 		gp = GmPn.IDLE;
 		chest = new Chest();
-		//GABRIEL to BEN: i was thinking we could implement this line V
 		random = new Randomizer<Room>(floor);
 		random.shuffle();
 		rand(random.getArray());
@@ -60,6 +59,16 @@ public class Engine implements Serializable{
 	}
 
 	public String move(char udrl){
+		if(gp == GmPn.DEAD){
+			return "you're dead\n";
+		}
+		if(gp == GmPn.FIGHT){
+			return "you're stopped my a monster\n";
+		}
+		if(gp == GmPn.WIN){
+			return "you win!\n";
+		}
+		
 		if(udrl == 'u' && player.getPos().getX() <9){
 			player.move(udrl);
 			if(player.getPos().getX() == 9 &&player.getPos().getY() ==9){
@@ -87,17 +96,30 @@ public class Engine implements Serializable{
 			return "You move west and encounter " + explore();
 		}
 		else{
-			return "You are blocked by a wall";	
+			return "You are blocked by a wall\n";	
 		}
 	}
 
 	private String finalBoss(){
-		enemy = new Enemy(50, 5, 10);
-		floor[9][9].setEnemy(enemy);
+		Room r =floor[player.getPos().getX()][player.getPos().getY()];
+		r.setEnemy(new Enemy());
+		enemy = floor[player.getPos().getX()][player.getPos().getY()].getEnemy();
+		gp = GmPn.FIGHT;
+		enemy.setHealth(50);
+		enemy.setPower(5);
 		return "\n an enemy with power unlike any other!!!\n";
 	}
 
 	public String attack(){
+		if(gp == GmPn.DEAD){
+			return "you're dead\n";
+		}
+		if(gp == GmPn.IDLE){
+			return "attack what?\n";
+		}
+		if(gp == GmPn.WIN){
+			return "you win!\n";
+		}
 		int delt = player.attack();
 
 		enemy.take(delt);
@@ -106,7 +128,7 @@ public class Engine implements Serializable{
 			gp = GmPn.IDLE;
 			floor[player.getPos().getX()][player.getPos().getY()].empty();
 			return "you dealt " + delt + " damage, vanquishing the beast\n" ;
-			
+
 		}
 
 		String message = enemyAttacks();
@@ -119,7 +141,7 @@ public class Engine implements Serializable{
 	}
 
 	public String usePotion(){
-		
+
 		if(gp == GmPn.FIGHT){
 			if(player.getPotions() == 0){
 				return "you are out of potions! \nYou attack instead!\n" + attack(); 
@@ -184,6 +206,10 @@ public class Engine implements Serializable{
 
 	int getPlayerMaxHealth(){
 		return player.getMax();
+	}
+
+	int getPotions(){
+		return player.getPotions();
 	}
 
 	/**Returns the Player object**/
