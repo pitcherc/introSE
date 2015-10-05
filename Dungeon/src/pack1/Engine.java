@@ -97,8 +97,8 @@ public class Engine implements Serializable{
 		r.setEnemy(new Enemy());
 		enemy = floor[player.getPos().getX()][player.getPos().getY()].getEnemy();
 		gp = GmPn.FIGHT;
-		enemy.setHealth(50);
-		enemy.setPower(5);
+		enemy.setHealth(25);
+		enemy.setPower(4);
 		return "\n an enemy with power unlike any other!!!\n";
 	}
 
