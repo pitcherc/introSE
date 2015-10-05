@@ -116,16 +116,4 @@ public class Randomizer<E> implements Serializable{
 	}
 	 
 	
-	public static void main(String args[]){
-		Room [][] r = new Room[5][5];
-		Randomizer<Room> temp = new Randomizer<Room>(r);
-		
-		//shuffle the values. 
-		temp.shuffle();
-		temp.shuffle();
-		temp.shuffle();
-		//print the values 
-		temp.print();
-		System.out.println("The size of the arraylist is: "+temp.getArray().size());
-	}
 }

@@ -251,7 +251,7 @@ public class MainGUI extends Application {
         attack = new Button("Attack");
         attack.setMinSize(100,50);
         attack.setOnAction(action -> {
-            
+                 
             gameStatus.appendText(game.attack());
             pHealth.setProgress(((double)game.getPlayerHealth())/
             		            ((double)game.getPlayerMaxHealth()));

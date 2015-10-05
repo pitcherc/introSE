@@ -54,7 +54,6 @@ public class EngineTest {
 		Room[][] f1 = e1.getFloor();
 		
 		Engine e2 = new Engine();
-		
 		Room[][] f2 = e2.getFloor();
 		
 		int differences = 0;

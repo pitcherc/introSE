@@ -60,15 +60,6 @@ public class Engine implements Serializable{
 	}
 
 	public String move(char udrl){
-		if(gp == GmPn.DEAD){
-			return "you're dead\n";
-		}
-		if(gp == GmPn.FIGHT){
-			return "you're stopped my a monster\n";
-		}
-		if(gp == GmPn.WIN){
-			return "you win!\n";
-		}
 		
 		if(udrl == 'u' && player.getPos().getX() <9){
 			player.move(udrl);
@@ -169,9 +160,7 @@ public class Engine implements Serializable{
 	}
 
 	private String enemyAttacks(){
-		if(floor[player.getPos().getX()][player.getPos().getY()].getEnemy() == null ){
-			return "attack what?\n";
-		}
+		
 		int take = enemy.attack();
 
 		player.take(take);
