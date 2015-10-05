@@ -31,6 +31,7 @@ public class Engine implements Serializable{
 		random = new Randomizer<Room>(floor);
 		random.shuffle();
 		rand(random.getArray());
+		floor[0][0].empty();
 	}	
 
 	private void rand(ArrayList<Position> list){
@@ -38,7 +39,7 @@ public class Engine implements Serializable{
 		for( int i = 0 ; i < list.size()*.7 ; i++) {
 			int  j = r.nextInt(10) + 1;
 			Position p = list.get(i);
-			if((p.getX() != 0 && p.getY() != 0) || (p.getX() != 9 && p.getY() != 9)){
+			if(p.getX() != 9 && p.getY() != 9){
 				if(j == 1){
 					//doChest();	
 				}
@@ -221,5 +222,8 @@ public class Engine implements Serializable{
 		return gp;
 	}
 
+	public Room[][] getFloor(){
+		return floor;
+	}
 
 }
