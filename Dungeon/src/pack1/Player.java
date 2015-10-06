@@ -137,6 +137,10 @@ public class Player implements Serializable{
 		level = lev;
 	}
 	
+	public ArrayList<Item> getPack(){
+		return items;
+	}
+	
 	public int getLevel(){
 		return level;
 	}

@@ -24,9 +24,9 @@ public class Enemy implements Serializable{
 	}
 	
 	Enemy(int h, int p, int s){
-		this.health = 1;
-		this.power = 1;
-		this.speed = 1;
+		this.health = h;
+		this.power = p;
+		this.speed = s;
 		isPowered = false;
 		message = "";
 		r = new Random();

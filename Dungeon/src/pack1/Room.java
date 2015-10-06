@@ -21,6 +21,15 @@ public class Room implements Serializable{
 		
 	}
 	
+	public boolean isEmpty(){
+		if(chest == null){
+			if(enemy == null){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	void setEnemy(Enemy e){
 		enemy = e;
 	}

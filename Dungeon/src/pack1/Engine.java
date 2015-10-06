@@ -60,7 +60,7 @@ public class Engine implements Serializable{
 	}
 
 	public String move(char udrl){
-		
+
 		if(udrl == 'u' && player.getPos().getX() <9){
 			player.move(udrl);
 			if(player.getPos().getX() == 9 &&player.getPos().getY() ==9){
@@ -143,24 +143,24 @@ public class Engine implements Serializable{
 
 			String message = enemyAttacks();
 
-			if(gp == GmPn.DEAD){
-				return message;
-			}
-
 			return "you fully recovered but were hit and " + message ;
 		}
-		else
+		else if (gp != GmPn.DEAD){
 			if(player.getPotions() == 0){
 				return "you're out of potions!\n";
 			}
-			else{
+			else {
 				player.usePotion();
 				return"you have been fully healed!\n";
 			}
+		}
+		else{
+			return "you are dead\n";
+		}
 	}
 
 	private String enemyAttacks(){
-		
+
 		int take = enemy.attack();
 
 		player.take(take);

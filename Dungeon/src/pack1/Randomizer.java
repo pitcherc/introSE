@@ -47,23 +47,6 @@ public class Randomizer<E> implements Serializable{
 		return randomizer;
 	}
 	
-	/******************************************************************
-	 * Initializes the randomizer array list with possible x y values. 
-	 * @param arr
-	 * An integer 2d array of the possible x and y values.  
-	 * @return
-	 * an array of the x and y coordinates. 
-	 ******************************************************************/
-	private ArrayList<Position> intArray(int[][] arr){
-		for(int i = 0; i< arr.length; ++i){
-			for(int j = 0; j<arr[0].length; ++j){
-				randomizer.add(0, new Position(i, j));
-			}
-		}
-		return randomizer;
-	}
-	
-	
 	
 	/******************************************************************
 	 * Prints the arralist of values
