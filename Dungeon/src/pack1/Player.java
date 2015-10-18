@@ -26,6 +26,10 @@ public class Player implements Serializable{
 	
 	private ArrayList<Item> items;
 	
+	private boolean hasWeapon;
+	
+	private boolean hasArmor;
+	
 	Random r;
 
 	Player(){
@@ -41,7 +45,8 @@ public class Player implements Serializable{
 		items = new ArrayList<Item>();
 		//modify these values later...
 		configItems();
-		
+		hasWeapon = false;
+		hasArmor = false;
 	}
 
 
