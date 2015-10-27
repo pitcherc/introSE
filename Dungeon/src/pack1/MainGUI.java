@@ -1,8 +1,7 @@
 package pack1;
 
+import java.io.File;
 import java.text.DecimalFormat;
-
-
 import javafx.application.Application;
 
 import javafx.geometry.Pos;
@@ -20,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**********************************************************************'
@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  * @author ben
  *
  *********************************************************************/
-public class MainGUI extends Application {
+public class MainGUI extends Application{
     
     
     /**The top MenuBar**/
@@ -62,6 +62,9 @@ public class MainGUI extends Application {
     
     /**left arrow button**/
     private Button leftArrow;
+    
+    /**Another useful button**/
+    private Button centerButton;
     
     /**Button for the Invertory Display**/
     private Button inventory;
@@ -100,8 +103,6 @@ public class MainGUI extends Application {
         launch(args);
     }
     
-    
-    
     @Override
     public void start(Stage window) throws Exception {
         Engine game = new Engine();
@@ -110,12 +111,12 @@ public class MainGUI extends Application {
         /**This won't be nessecary once we have the game object up
          * Hence this is just a test of the array list inventory display
          **/
-        //		game = new ArrayList<String>();
-        //		game.add("Scimitar");
-        //		game.add("Cake");
-        //		game.add("Bannas");
-        //		game.add("Keys");
-        //		game.add("Long Sword");
+//        		game = new ArrayList<String>();
+//        		game.add("Scimitar");
+//        		game.add("Cake");
+//        		game.add("Bannas");
+//        		game.add("Keys");
+//        		game.add("Long Sword");
         
         BorderPane outmostborder = new BorderPane();
         mnuBar = new MenuBar();
@@ -123,9 +124,15 @@ public class MainGUI extends Application {
         quit = new MenuItem("Quit");
         save = new MenuItem("Save");
         load = new MenuItem("Load");
-        quit.setOnAction(action ->QuitOption.quitWindow("are you sure?"));
+        quit.setOnAction(action ->QuitOption.quitWindow("Are you sure?"));
         
+        load.setOnAction(action -> {
+        	loadFileChooser("Choose a File", window, game);
+        });
         
+        save.setOnAction(action -> {
+        	saveFileChooser("Save where?",window, game);
+        });
         
         //Resets the default close operation of the window itself.
         window.setOnCloseRequest(event -> {
@@ -210,9 +217,17 @@ public class MainGUI extends Application {
             }
         });
         
+        centerButton = new Button(""+(char)8482);
+        centerButton.setMaxWidth(Double.MAX_VALUE);
+        centerButton.setMaxHeight(Double.MAX_VALUE);
+        centerButton.setOnAction(action ->{
+        	System.out.println("The button works.");
+        });
+        
         btnPanel.setAlignment(Pos.CENTER);
         
-        btnPanel.getChildren().addAll(upArrow,leftArrow,rightArrow, downArrow);
+        btnPanel.getChildren().addAll(upArrow,leftArrow,rightArrow, downArrow,centerButton);
+        GridPane.setConstraints(centerButton, 1, 1);
         GridPane.setConstraints(upArrow, 1, 0);
         GridPane.setConstraints(leftArrow, 0, 1);
         GridPane.setConstraints(rightArrow, 2, 1);
@@ -251,7 +266,7 @@ public class MainGUI extends Application {
         attack = new Button("Attack");
         attack.setMinSize(100,50);
         attack.setOnAction(action -> {
-                 
+            
             gameStatus.appendText(game.attack());
             pHealth.setProgress(((double)game.getPlayerHealth())/
             		            ((double)game.getPlayerMaxHealth()));
@@ -281,10 +296,8 @@ public class MainGUI extends Application {
         mHealthLabel = new Label("Monster Health: ");
         leftlayout.getChildren().addAll(mHealthLabel,mHealth);
         leftlayout.setAlignment(Pos.CENTER_LEFT);
-        
-        monsterImage = new Image("http://paratime.ca/images/fantasy/dungeon-024.jpg",500,500,true,true);
-        ImageView ivMonster = new ImageView(monsterImage);
-        centerlayout.setCenter(ivMonster);
+      
+        centerlayout.setCenter((new ImageMap(game).updateMap()));
         
         centerlayout.setLeft(leftlayout);
         
@@ -312,5 +325,49 @@ public class MainGUI extends Application {
         pHealthLabel.setText("Player Health: %"+(
                                                  df.format( ( (double)game.getPlayerHealth()*5) ) ) );
         potion.setText("potions(" + game.getPotions()+")");
+    }
+    
+    /*****************************************************************************
+     * Sets up the file chooser for the user to load their game.
+     * @param pMessage
+     * The message displayed to the user
+     * @param pWindow
+     * The window we're dispalying to
+     * @param pGame
+     * The game object, so we can load the game in.
+     *****************************************************************************/
+    private void loadFileChooser(String pMessage, Stage pWindow, Engine pGame){
+    	//create a file chooser
+    	FileChooser load = new FileChooser();
+    	load.setTitle(pMessage);
+    	//Change the .extension filter to be of type game.
+    	//when the game is saved it should be *.game
+    	load.setSelectedExtensionFilter(
+    			new FileChooser.ExtensionFilter("Game files (*.game)", "*.game"));
+    	File file = load.showOpenDialog(pWindow);
+    	//implement the load functionality later.
+    	if(file != null){
+    		pGame.loadGame(file.getAbsolutePath());
+    	}
+    }
+    
+    /*****************************************************************************
+     * 
+     * @param pMessage
+     * @param pWindow
+     * @param pGame
+     *****************************************************************************/
+    private void saveFileChooser(String pMessage, Stage pWindow, Engine pGame){
+    	FileChooser usrSelected = new FileChooser();
+    	usrSelected.setTitle(pMessage);
+    	File file = usrSelected.showSaveDialog(pWindow);
+    	
+    	if(file != null){
+    		pGame.saveGame(file.getAbsolutePath(), pGame);
+    	}else{
+    		//do nothing.
+    		return;
+    	}
+    	//come up with a save option for the game.
     }
 }
