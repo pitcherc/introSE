@@ -158,6 +158,50 @@ public class Engine implements Serializable{
 			return "you are dead\n";
 		}
 	}
+	
+	/******************************************************************
+	 * Saves the game state as is. 
+	 * @param filepath
+	 * The file path to the object, and is retrieved by the 
+	 * game engine itself.
+	 * @param Engine game
+	 * This object is the game object to be saved off
+	 *****************************************************************/
+	public void saveGame(String filepath, Engine game){
+		try{
+			FileOutputStream fos = new FileOutputStream(filepath);
+			ObjectOutputStream os = new ObjectOutputStream(fos);
+			os.writeObject(game);
+			os.close();
+		}catch(IOException exception){
+			System.out.println("Check the save game method.");
+			exception.printStackTrace();
+		}
+	}
+	
+	/****************************************************************
+	 * This must be done carefully because the user
+	 * can read in objects that are not a Game object.
+	 * Add type checking in future releases. Also file filters
+	 * should be used when 
+	 * @param String filepath
+	 * Is the absolute filepath to the game object.
+	 ***************************************************************/
+	public void loadGame(String filepath){
+		
+		try {
+			FileInputStream fis = new FileInputStream(filepath);
+			ObjectInputStream is = new ObjectInputStream(fis);
+			Engine temp = (Engine)is.readObject();
+			//should be anything else to do here....
+			this.player = temp.player;
+			this.floor = temp.floor;
+		} catch (Exception ex) {
+			System.out.println("Check the load Game method.");
+			ex.printStackTrace();
+		}
+		
+	}
 
 	private String enemyAttacks(){
 
