@@ -10,6 +10,8 @@ public class Room implements Serializable{
 	
 	private Chest chest;
 	
+	private boolean isVisited;
+	
 	Room(){
 		enemy = null;
 		chest = null;
@@ -45,4 +47,21 @@ public class Room implements Serializable{
 	Chest getChest(){
 		return chest;
 	}
+	
+	/*****************************************************
+	 * If a player has visited this room. Set is Visited
+	 * to true.
+	 * @param pVisit
+	 ***************************************************/
+	void setVisited(boolean pVisit){
+		this.isVisited = true;
+	}
+	
+	/******************************************************************
+	 * Returns true if the room has been visited before by the 
+	 * player object.
+	 * @return isVisited
+	 * isVisited is an instance variable of the class.
+	 *****************************************************************/
+	boolean isVisited(){return isVisited;}
 }
