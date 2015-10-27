@@ -16,15 +16,10 @@ import javafx.scene.layout.GridPane;
  *********************************************************************/
 public class ImageMap {
 
-	/**This is for the image array of object.**/
-	private ImageView[][] imgArray;
+	private Room[][] rooms;
 
-	private Engine eng;
-
-
-	ImageMap(Engine pEng){
-		this.eng = pEng;
-		imgArray = new ImageView[8][8];
+	ImageMap(Room[][] pEng){
+		rooms = pEng;
 	}
 
 	/******************************************************************
@@ -34,16 +29,21 @@ public class ImageMap {
 	 * @return
 	 * A g
 	 *******************************************************************/
-	public Node updateMap(){
+	public Node updateMap(Player player){
 		//don't do anything if the game engine is null.
-		if(eng == null){return null;}
+		if(rooms == null){return null;}
 
 		GridPane grid = new GridPane();
-		File f = new File("/Users/ben/Desktop/Images/enemy.png");
-		File f2 = new File("/Users/ben/Desktop/Images/blank.png");
-
-		for(int i = 0; i<eng.getFloors().length; ++i){
-			for(int j = 0; j<eng.getFloors()[0].length; ++j){
+		//File f = new File("/Users/ben/Desktop/Images/enemy.png");
+		File f = new File("enemy.png");
+		//File f2 = new File("/Users/ben/Desktop/Images/blank.png");
+		File f2 = new File("blank.png");
+		
+		//
+		File f3 = new File("chest.png");
+		
+		for(int i = 0; i<rooms.length; ++i){
+			for(int j = 0; j<rooms[0].length; ++j){
 
 				//Jank kinda work around to get an image loaded in from a file.
 				Image monster = new Image(f.toURI().toString());
@@ -51,6 +51,9 @@ public class ImageMap {
 
 				Image blank = new Image(f2.toURI().toString());
 				ImageView imgViewBlank = new ImageView(blank);
+				
+				Image chest = new Image(f3.toURI().toString());
+				ImageView imgViewChest = new ImageView(chest);
 
 				//some workings for the images
 				imgViewBlank.setFitHeight(50);
@@ -62,19 +65,33 @@ public class ImageMap {
 				mImageView.setPreserveRatio(true);
 				mImageView.setSmooth(true);
 				mImageView.setCache(true);
+				
+				imgViewChest.setFitHeight(50);
+				imgViewChest.setPreserveRatio(true);
+				imgViewChest.setSmooth(true);
+				imgViewChest.setCache(true);
 
 				//add the appropriate image onto that position.
-				if(eng.getFloors()[i][j].isVisited() == false ){
+				if(rooms[i][j].isVisited() == false ){
 					grid.getChildren().add(imgViewBlank);
 					GridPane.setConstraints(imgViewBlank, j, i);
 				}
-				else if(eng.getFloors()[i][j].isVisited() == true && eng.getFloors()[i][j].getEnemy() != null){
+				else if(rooms[i][j].isVisited() == true && rooms[i][j].getEnemy() != null){
 					grid.getChildren().add(mImageView);
 					GridPane.setConstraints(mImageView, j, i);
+				}
+				else if(player.getPos().equals(new Position(i,j)) == 1){
+					grid.getChildren().add(imgViewChest);
+				    GridPane.setConstraints(imgViewChest,j,i);
 				}
 			}
 		}
 		grid.setAlignment(Pos.CENTER);
 		return grid;
+	}
+	
+	
+	void setRooms(Room[][] pRoom){
+		rooms = pRoom;
 	}
 }

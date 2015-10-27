@@ -17,6 +17,16 @@ public class Position implements Serializable{
 	public void setX(int newX){
 		x = newX;
 	}
+	
+	public int equals(Position other){
+		
+		if(other.x == this.x && other.y == this.y)
+		return 1;
+		else
+		return 0;
+				
+				
+	}
 
 	public void setY(int newY){
 		y = newY;

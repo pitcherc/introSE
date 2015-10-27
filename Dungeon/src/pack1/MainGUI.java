@@ -99,13 +99,18 @@ public class MainGUI extends Application{
     /**Label for the player's current position**/
     Label playerLabel;
     
+    ImageMap centerMap;
+    
     public static void main(String args[]){
         launch(args);
     }
     
     @Override
     public void start(Stage window) throws Exception {
+    	
         Engine game = new Engine();
+        BorderPane centerlayout = new BorderPane();
+        centerMap = new ImageMap(game.getFloors());
         
         movable = true;
         /**This won't be nessecary once we have the game object up
@@ -172,6 +177,8 @@ public class MainGUI extends Application{
             }
             if(movable){
                 movable = true;
+                centerMap.setRooms(game.getFloors());
+                centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
                 gameStatus.appendText(game.move('u'));
                 playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
             }
@@ -185,6 +192,8 @@ public class MainGUI extends Application{
             }
             if(movable){
                 movable = true;
+                centerMap.setRooms(game.getFloors());
+                centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
                 gameStatus.appendText(game.move('d'));
                 playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
                 
@@ -199,6 +208,8 @@ public class MainGUI extends Application{
             }
             if(movable){
                 movable = true;
+                centerMap.setRooms(game.getFloors());
+                centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
                 gameStatus.appendText(game.move('l'));
                 playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
             }
@@ -212,6 +223,8 @@ public class MainGUI extends Application{
             }
             if(movable){
                 movable = true;
+                centerMap.setRooms(game.getFloors());
+                centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
                 gameStatus.appendText(game.move('r'));
                 playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
             }
@@ -235,7 +248,7 @@ public class MainGUI extends Application{
         
         //Setting up the Center Border Layout
         //Used for enemy image, and Buttons to control the game
-        BorderPane centerlayout = new BorderPane();
+
         GridPane centerbuttonpanel = new GridPane();
         centerbuttonpanel.setVgap(25);
         centerbuttonpanel.setHgap(25);
@@ -297,7 +310,7 @@ public class MainGUI extends Application{
         leftlayout.getChildren().addAll(mHealthLabel,mHealth);
         leftlayout.setAlignment(Pos.CENTER_LEFT);
       
-        centerlayout.setCenter((new ImageMap(game).updateMap()));
+        centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
         
         centerlayout.setLeft(leftlayout);
         

@@ -1,5 +1,10 @@
 package pack1;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,7 +33,9 @@ public class Engine implements Serializable{
 		configFloors();
 		gp = GmPn.IDLE;
 		chest = new Chest();
+		floor[0][0].setVisited(true);
 		random = new Randomizer<Room>(floor);
+		random.shuffle();
 		random.shuffle();
 		rand(random.getArray());
 		floor[0][0].empty();
@@ -63,6 +70,7 @@ public class Engine implements Serializable{
 
 		if(udrl == 'u' && player.getPos().getX() <9){
 			player.move(udrl);
+			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
 			if(player.getPos().getX() == 9 &&player.getPos().getY() ==9){
 				return "You move north and encounter " + finalBoss();
 			}
@@ -72,10 +80,12 @@ public class Engine implements Serializable{
 		}
 		else if(udrl == 'd' && player.getPos().getX() >0){
 			player.move(udrl);
+			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
 			return "You move south and encounter " + explore();
 		}
 		else if(udrl == 'r' && player.getPos().getY() <9){
 			player.move(udrl);
+			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
 			if(player.getPos().getX() == 9 &&player.getPos().getY() ==9){
 				return "You move north and encounter " + finalBoss();
 			}
@@ -85,6 +95,7 @@ public class Engine implements Serializable{
 		}
 		else if(udrl == 'l' && player.getPos().getY() >0){
 			player.move(udrl);
+			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
 			return "You move west and encounter " + explore();
 		}
 		else{
@@ -100,6 +111,10 @@ public class Engine implements Serializable{
 		enemy.setHealth(25);
 		enemy.setPower(4);
 		return "\n an enemy with power unlike any other!!!\n";
+	}
+
+	Room[][] getFloors(){
+		return floor;
 	}
 
 	public String attack(){
@@ -158,7 +173,7 @@ public class Engine implements Serializable{
 			return "you are dead\n";
 		}
 	}
-	
+
 	/******************************************************************
 	 * Saves the game state as is. 
 	 * @param filepath
@@ -178,17 +193,17 @@ public class Engine implements Serializable{
 			exception.printStackTrace();
 		}
 	}
-	
+
 	/****************************************************************
 	 * This must be done carefully because the user
 	 * can read in objects that are not a Game object.
 	 * Add type checking in future releases. Also file filters
 	 * should be used when 
-	 * @param String filepath
-	 * Is the absolute filepath to the game object.
+	 * @param String file path
+	 * Is the absolute file path to the game object.
 	 ***************************************************************/
 	public void loadGame(String filepath){
-		
+
 		try {
 			FileInputStream fis = new FileInputStream(filepath);
 			ObjectInputStream is = new ObjectInputStream(fis);
@@ -200,7 +215,7 @@ public class Engine implements Serializable{
 			System.out.println("Check the load Game method.");
 			ex.printStackTrace();
 		}
-		
+
 	}
 
 	private String enemyAttacks(){
