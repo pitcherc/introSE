@@ -230,7 +230,7 @@ public class Engine implements Serializable{
 			return"you were dealt " + take + " damage, and died\n" ;
 		}
 
-		return 	" took "+ take + "damage\n";		
+		return 	" took "+ take + " damage\n";		
 	}
 
 	private String explore(){
