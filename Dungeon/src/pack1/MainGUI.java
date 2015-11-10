@@ -177,6 +177,7 @@ public class MainGUI extends Application{
 				movable = true;
 				centerMap.setRooms(game.getFloors());
 				gameStatus.appendText(game.move('u'));
+				mHealth.setProgress(-1);
 				centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
 				playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
 			}
@@ -192,6 +193,7 @@ public class MainGUI extends Application{
 				movable = true;
 				centerMap.setRooms(game.getFloors());
 				gameStatus.appendText(game.move('d'));
+				mHealth.setProgress(-1);
 				centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
 				playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
 
@@ -208,6 +210,7 @@ public class MainGUI extends Application{
 				movable = true;
 				centerMap.setRooms(game.getFloors());
 				gameStatus.appendText(game.move('l'));
+				mHealth.setProgress(-1);
 				centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
 				playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
 			}
@@ -223,6 +226,7 @@ public class MainGUI extends Application{
 				movable = true;
 				centerMap.setRooms(game.getFloors());
 				gameStatus.appendText(game.move('r'));
+				mHealth.setProgress(-1);
 				centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
 				playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
 			}
@@ -281,6 +285,9 @@ public class MainGUI extends Application{
 			gameStatus.appendText(game.attack());
 			pHealth.setProgress(((double)game.getPlayerHealth())/
 					((double)game.getPlayerMaxHealth()));
+			mHealth.setProgress(((double)game.getEnemy().getHealth())/
+					((double)game.getEnemy().getMaxH()));
+
 			if(game.getGameStatus() == GmPn.IDLE){
 				movable = true;
 			}
@@ -331,6 +338,7 @@ public class MainGUI extends Application{
 
 	private void callPotion(Engine game){
 		gameStatus.appendText(game.usePotion());
+		mHealth.setProgress(((double)game.getEnemy().getHealth())/((double)game.getEnemy().getMaxH()));
 		pHealth.setProgress(((double)game.getPlayerHealth())/((double)game.getPlayerMaxHealth()));
 		DecimalFormat df = new DecimalFormat("##.##");
 		pHealthLabel.setText("Player Health: %"+(

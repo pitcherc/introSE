@@ -8,6 +8,7 @@ public class Enemy implements Serializable{
 	private static final long serialVersionUID = -4698677585314996195L;
 
 	private int health;
+	private int max_health;
 	private int power;
 	private int speed;
 	private Boolean isPowered;
@@ -18,6 +19,7 @@ public class Enemy implements Serializable{
 		this.health = 1;
 		this.power = 1;
 		this.speed = 1;
+		this.max_health = this.health;
 		isPowered = false;
 		message = "";
 		r = new Random();
@@ -27,6 +29,7 @@ public class Enemy implements Serializable{
 		this.health = h;
 		this.power = p;
 		this.speed = s;
+		this.max_health = this.health;
 		isPowered = false;
 		message = "";
 		r = new Random();
@@ -67,6 +70,12 @@ public class Enemy implements Serializable{
 	}
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+	public int getMaxH(){
+		return this.max_health;
+	}
+	public void setMax(){
+		this.max_health = this.health;
 	}
 
 }

@@ -110,6 +110,7 @@ public class Engine implements Serializable{
 		gp = GmPn.FIGHT;
 		enemy.setHealth(25);
 		enemy.setPower(4);
+		enemy.setMax();
 		return "\n an enemy with power unlike any other!!!\n";
 	}
 
@@ -241,6 +242,7 @@ public class Engine implements Serializable{
 			gp = GmPn.FIGHT;
 			enemy.setHealth((5 +(r.nextInt(5))) * (player.getLevel()));
 			enemy.setPower( r.nextInt(1 + player.getLevel()) + 1);
+			enemy.setMax();
 			return "A MONSTER\nHEALTH: " + enemy.getHealth() + "\nPOWER: " + enemy.getPower() + '\n';
 		}
 		// floor[p.getX()][p.getY()].getChest();
@@ -268,6 +270,14 @@ public class Engine implements Serializable{
 
 	public GmPn getGameStatus(){
 		return gp;
+	}
+	public Enemy getEnemy(){
+		if(this.enemy == null){
+			Enemy e = new Enemy(-1 , 0 , 0);
+			e.setHealth(1);
+			return e;
+		}
+		return this.enemy;
 	}
 
 	public Room[][] getFloor(){
