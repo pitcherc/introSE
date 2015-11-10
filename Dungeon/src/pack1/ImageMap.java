@@ -1,4 +1,4 @@
-package pack1;
+package package1;
 
 import java.io.File;
 import javafx.geometry.Pos;
@@ -12,8 +12,7 @@ import javafx.scene.layout.GridPane;
  * the game map. Then using other methods within the class update 
  * certain positions within the imgArray. 
  * @author Benjamin J. Benson
- *
- *********************************************************************/
+ **********************************************************************/
 public class ImageMap {
 
 	private Room[][] rooms;
@@ -34,14 +33,16 @@ public class ImageMap {
 		if(rooms == null){return null;}
 
 		GridPane grid = new GridPane();
-		//File f = new File("/Users/ben/Desktop/Images/enemy.png");
-		File f = new File("enemy.png");
-		//File f2 = new File("/Users/ben/Desktop/Images/blank.png");
-		File f2 = new File("blank.png");
-		
+		File f = new File("/Users/ben/Desktop/Images/enemy.png");
+		//File f = new File("enemy.png");
+		File f2 = new File("/Users/ben/Desktop/Images/blank.png");
+		//File f2 = new File("blank.png");
+
 		//
-		File f3 = new File("chest.png");
-		
+		File f3 = new File("/Users/ben/Desktop/Images/chest.png");
+
+		File f4 = new File("/Users/ben/Desktop/Images/visited.jpg");
+
 		for(int i = 0; i<rooms.length; ++i){
 			for(int j = 0; j<rooms[0].length; ++j){
 
@@ -51,9 +52,12 @@ public class ImageMap {
 
 				Image blank = new Image(f2.toURI().toString());
 				ImageView imgViewBlank = new ImageView(blank);
-				
+
 				Image chest = new Image(f3.toURI().toString());
 				ImageView imgViewChest = new ImageView(chest);
+
+				Image visited  = new Image(f4.toURI().toString());
+				ImageView imgVisited = new ImageView(visited);
 
 				//some workings for the images
 				imgViewBlank.setFitHeight(50);
@@ -65,32 +69,46 @@ public class ImageMap {
 				mImageView.setPreserveRatio(true);
 				mImageView.setSmooth(true);
 				mImageView.setCache(true);
-				
+
 				imgViewChest.setFitHeight(50);
 				imgViewChest.setPreserveRatio(true);
 				imgViewChest.setSmooth(true);
 				imgViewChest.setCache(true);
 
-				//add the appropriate image onto that position.
+				imgVisited.setFitHeight(50);
+				imgVisited.setPreserveRatio(true);
+				imgVisited.setSmooth(true);
+				imgVisited.setCache(true);
+
+				//change the image at that location to something not visited.
 				if(rooms[i][j].isVisited() == false ){
 					grid.getChildren().add(imgViewBlank);
 					GridPane.setConstraints(imgViewBlank, j, i);
 				}
+
+				//for the monster image 
 				else if(rooms[i][j].isVisited() == true && rooms[i][j].getEnemy() != null){
 					grid.getChildren().add(mImageView);
 					GridPane.setConstraints(mImageView, j, i);
 				}
+
+				//for the player object.
 				else if(player.getPos().equals(new Position(i,j)) == 1){
 					grid.getChildren().add(imgViewChest);
-				    GridPane.setConstraints(imgViewChest,j,i);
+					GridPane.setConstraints(imgViewChest,j,i);
+				}
+				//case for the player not being at that position, and he's already visited that position
+				else if(rooms[i][j].isVisited() && i != player.getPos().getY() && j != player.getPos().getX() ){
+					grid.getChildren().add(imgVisited);
+					GridPane.setConstraints(imgVisited, j, i);
 				}
 			}
 		}
 		grid.setAlignment(Pos.CENTER);
 		return grid;
 	}
-	
-	
+
+
 	void setRooms(Room[][] pRoom){
 		rooms = pRoom;
 	}
