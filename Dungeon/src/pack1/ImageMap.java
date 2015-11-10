@@ -1,4 +1,4 @@
-package package1;
+package pack1;
 
 import java.io.File;
 import javafx.geometry.Pos;
@@ -33,15 +33,15 @@ public class ImageMap {
 		if(rooms == null){return null;}
 
 		GridPane grid = new GridPane();
-		File f = new File("/Users/ben/Desktop/Images/enemy.png");
-		//File f = new File("enemy.png");
-		File f2 = new File("/Users/ben/Desktop/Images/blank.png");
-		//File f2 = new File("blank.png");
+		//File f = new File("/Users/ben/Desktop/Images/enemy.png");
+		File f = new File("enemy.png");
+		//File f2 = new File("/Users/ben/Desktop/Images/blank.png");
+		File f2 = new File("blank.png");
 
-		//
-		File f3 = new File("/Users/ben/Desktop/Images/chest.png");
-
-		File f4 = new File("/Users/ben/Desktop/Images/visited.jpg");
+		File f3 = new File("chest.png");
+		//File f3 = new File("/Users/ben/Desktop/Images/chest.png");
+		File f4 = new File("visited.jpg");
+		//File f4 = new File("/Users/ben/Desktop/Images/visited.jpg");
 
 		for(int i = 0; i<rooms.length; ++i){
 			for(int j = 0; j<rooms[0].length; ++j){
@@ -98,8 +98,9 @@ public class ImageMap {
 					GridPane.setConstraints(imgViewChest,j,i);
 				}
 				//case for the player not being at that position, and he's already visited that position
-				else if(rooms[i][j].isVisited() && i != player.getPos().getY() && j != player.getPos().getX() ){
+				else{// if(rooms[i][j].isVisited() && i != player.getPos().getY() && j != player.getPos().getX() ){
 					grid.getChildren().add(imgVisited);
+					
 					GridPane.setConstraints(imgVisited, j, i);
 				}
 			}

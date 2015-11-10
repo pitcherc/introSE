@@ -95,9 +95,14 @@ public class MainGUI extends Application{
 	private boolean movable;
 
 	/**Label for the player's current position**/
-	Label playerLabel;
+	private Label playerLabel;
 
-	ImageMap centerMap;
+	private ImageMap centerMap;
+	
+	private BorderPane centerlayout;
+	
+	/****/
+	private Engine game;
 
 	public static void main(String args[]){
 		launch(args);
@@ -106,8 +111,8 @@ public class MainGUI extends Application{
 	@Override
 	public void start(Stage window) throws Exception {
 
-		Engine game = new Engine();
-		BorderPane centerlayout = new BorderPane();
+		game = new Engine();
+		centerlayout = new BorderPane();
 		centerMap = new ImageMap(game.getFloors());
 
 		movable = true;
@@ -130,11 +135,15 @@ public class MainGUI extends Application{
 		quit.setOnAction(action ->QuitOption.quitWindow("Are you sure?"));
 
 		load.setOnAction(action -> {
-			loadFileChooser("Choose a File", window, game);
+			if(game.getGameStatus() != GmPn.FIGHT){
+				loadFileChooser("Choose a File", window, game);
+			}
 		});
 
 		save.setOnAction(action -> {
-			saveFileChooser("Save where?",window, game);
+			if(game.getGameStatus() != GmPn.FIGHT){
+				saveFileChooser("Save where?",window, game);
+			}
 		});
 
 		//Resets the default close operation of the window itself.
@@ -176,7 +185,7 @@ public class MainGUI extends Application{
 			if(movable){
 				movable = true;
 				centerMap.setRooms(game.getFloors());
-				gameStatus.appendText(game.move('u'));
+				gameStatus.appendText(game.move('d'));
 				mHealth.setProgress(-1);
 				centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
 				playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
@@ -192,7 +201,7 @@ public class MainGUI extends Application{
 			if(movable){
 				movable = true;
 				centerMap.setRooms(game.getFloors());
-				gameStatus.appendText(game.move('d'));
+				gameStatus.appendText(game.move('u'));
 				mHealth.setProgress(-1);
 				centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
 				playerLabel.setText("Player Location: "+game.getPlayer().getPos().toString());
@@ -366,8 +375,13 @@ public class MainGUI extends Application{
 		File file = load.showOpenDialog(pWindow);
 		//implement the load functionality later.
 		if(file != null){
-			pGame.loadGame(file.getAbsolutePath());
+			game.loadGame(file.getAbsolutePath());
 		}
+		
+		gameStatus.clear();
+		gameStatus.setText("Loaded in a previous game state \n");
+		centerMap.setRooms(game.getFloor());
+		centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
 	}
 
 	/*****************************************************************************
