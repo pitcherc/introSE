@@ -298,9 +298,9 @@ public class MainGUI extends Application{
 					((double)game.getEnemy().getMaxH()));
 			
 			centerMap.setRooms(game.getFloors());
-			
-			//centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
-			
+			if(game.getEnemy().getHealth() <= 0){
+				centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
+			}
 				
 			if(game.getGameStatus() == GmPn.IDLE){
 				movable = true;
