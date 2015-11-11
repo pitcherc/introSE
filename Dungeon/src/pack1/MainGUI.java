@@ -296,7 +296,12 @@ public class MainGUI extends Application{
 					((double)game.getPlayerMaxHealth()));
 			mHealth.setProgress(((double)game.getEnemy().getHealth())/
 					((double)game.getEnemy().getMaxH()));
-
+			
+			centerMap.setRooms(game.getFloors());
+			
+			//centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
+			
+				
 			if(game.getGameStatus() == GmPn.IDLE){
 				movable = true;
 			}

@@ -38,7 +38,7 @@ public class ImageMap {
 		//File f2 = new File("/Users/ben/Desktop/Images/blank.png");
 		File f2 = new File("blank.png");
 
-		File f3 = new File("chest.png");
+		File f3 = new File("player.png");
 		//File f3 = new File("/Users/ben/Desktop/Images/chest.png");
 		File f4 = new File("visited.jpg");
 		//File f4 = new File("/Users/ben/Desktop/Images/visited.jpg");

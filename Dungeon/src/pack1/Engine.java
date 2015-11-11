@@ -134,7 +134,11 @@ public class Engine implements Serializable{
 
 		if(enemy.getHealth() <= 0){
 			gp = GmPn.IDLE;
+			
 			floor[player.getPos().getX()][player.getPos().getY()].empty();
+			
+			floor[player.getPos().getX()][player.getPos().getY()].setEnemy(null);
+			
 			return "you dealt " + delt + " damage, vanquishing the beast\n" ;
 
 		}
