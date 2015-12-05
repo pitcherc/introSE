@@ -39,6 +39,11 @@ public class Engine implements Serializable{
 		random.shuffle();
 		rand(random.getArray());
 		floor[0][0].empty();
+		int bx = r.nextInt(3) + 6;
+		int by = r.nextInt(3) + 6;
+		floor[bx][by].empty();
+		floor[bx][by].setFinal();
+		
 	}	
 
 	private void rand(ArrayList<Position> list){
@@ -71,8 +76,8 @@ public class Engine implements Serializable{
 		if(udrl == 'u' && player.getPos().getX() <9){
 			player.move(udrl);
 			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
-			if(player.getPos().getX() == 9 &&player.getPos().getY() ==9){
-				return "You move north and encounter " + finalBoss();
+			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
+					return "You move north and encounter " + finalBoss();
 			}
 			else{
 				return "You move north and encounter " + explore();
@@ -81,13 +86,19 @@ public class Engine implements Serializable{
 		else if(udrl == 'd' && player.getPos().getX() >0){
 			player.move(udrl);
 			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
-			return "You move south and encounter " + explore();
+			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
+				return "You move south and encounter " + finalBoss();
+			}
+			else{
+			
+				return "You move south and encounter " + explore();
+			}
 		}
 		else if(udrl == 'r' && player.getPos().getY() <9){
 			player.move(udrl);
 			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
-			if(player.getPos().getX() == 9 &&player.getPos().getY() ==9){
-				return "You move north and encounter " + finalBoss();
+			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
+				return "You move east and encounter " + finalBoss();
 			}
 			else{
 				return "You move east and encounter " + explore();
@@ -96,7 +107,12 @@ public class Engine implements Serializable{
 		else if(udrl == 'l' && player.getPos().getY() >0){
 			player.move(udrl);
 			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
-			return "You move west and encounter " + explore();
+			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
+				return "You move west and encounter " + finalBoss();
+			}
+			else{
+				return "You move west and encounter " + explore();
+			}
 		}
 		else{
 			return "You are blocked by a wall\n";	
@@ -147,6 +163,13 @@ public class Engine implements Serializable{
 
 		if(enemy.getHealth() <= 0){
 			gp = GmPn.IDLE;
+			
+			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
+				return "After trails and tribulations a plenty \n "
+						+ "you deal the final blow to the monster \n"
+						+ "walking homebound you bring good new for "
+						+ "your village";
+			}
 			
 			floor[player.getPos().getX()][player.getPos().getY()].empty();
 			
