@@ -35,10 +35,10 @@ public class Player implements Serializable{
 	Player(){
 		level = 1;
 		potions = 4;
-		curMaxHealth = 20;
+		curMaxHealth = 1000;
 		health = curMaxHealth;
-		power = 3;
-		speed =2;
+		power = 30;
+		speed = 2;
 		equip = null;
 		r = new Random();
 		pos = new Position(0,0);
@@ -47,6 +47,9 @@ public class Player implements Serializable{
 		configItems();
 		hasWeapon = false;
 		hasArmor = false;
+		Equiptment sword = null;
+		Equiptment shield = null;
+		Equiptment armor = null;
 	}
 
 
@@ -95,7 +98,7 @@ public class Player implements Serializable{
 	}
 	
 	public int attack(){
-		return level + r.nextInt(power);
+		return power + r.nextInt(power)/2;
 	}
 
 	public int getHealth() {

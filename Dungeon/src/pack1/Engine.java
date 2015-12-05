@@ -108,14 +108,27 @@ public class Engine implements Serializable{
 		r.setEnemy(new Enemy());
 		enemy = floor[player.getPos().getX()][player.getPos().getY()].getEnemy();
 		gp = GmPn.FIGHT;
-		enemy.setHealth(25);
-		enemy.setPower(4);
-		enemy.setMax();
-		return "\n an enemy with power unlike any other!!!\n";
+		enemy.setHealth(1000);
+		enemy.setPower(30);
+		return "\n An enemy embrasing the essence of pure evil \n";
 	}
 
 	Room[][] getFloors(){
 		return floor;
+	}
+	
+	public String openChest(){
+		int i = r.nextInt(20);
+		
+		if(i == 0){
+			player.take(player.getHealth() / 2);
+			return "The chest turned out to be \n trapped! You were severly damaged!\n";
+		}
+		else{
+			Equiptment found = floor[player.getPos().getX()][player.getPos().getY()].open();
+			player.equipt(found);
+			return "You found " + found.name + "!";
+		}
 	}
 
 	public String attack(){
@@ -244,8 +257,8 @@ public class Engine implements Serializable{
 
 		if(enemy != null){
 			gp = GmPn.FIGHT;
-			enemy.setHealth((5 +(r.nextInt(5))) * (player.getLevel()));
-			enemy.setPower( r.nextInt(1 + player.getLevel()) + 1);
+			enemy.setHealth((200 +(r.nextInt(100))) * (player.getLevel()));
+			enemy.setPower(10 +  (r.nextInt(10)/2));
 			enemy.setMax();
 			return "A MONSTER\nHEALTH: " + enemy.getHealth() + "\nPOWER: " + enemy.getPower() + '\n';
 		}
