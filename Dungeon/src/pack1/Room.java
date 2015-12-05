@@ -53,7 +53,15 @@ public class Room implements Serializable{
 	}
 	
 	Equiptment open(){
-		return chest.open();
+		if(!(opened))
+		{
+			opened = true;
+			return chest.open();
+		}
+		else
+		{
+		 return null;	
+		}
 	}
 	
 	/*****************************************************

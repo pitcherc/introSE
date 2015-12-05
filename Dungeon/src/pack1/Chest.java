@@ -15,7 +15,10 @@ public class Chest implements Serializable{
 	Chest(){
 
 		items = new ArrayList<Equiptment>();
-		
+		//0 health //1 power // 0 = sword // desc
+		                     // 1 = armor
+							 // 2 = shield
+	 items.add(new Equiptment(0,1,0, "a simeple sowrd "));
 		//item instantiation // 30 to start
 		r = new Random();
 	}
