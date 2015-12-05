@@ -36,19 +36,19 @@ public class Chest implements Serializable{
 	 items.add(new Equiptment(1000,0,2, "a Ulitmate God Shield"));
 	 items.add(new Equiptment(100,0,2, "a simple shield"));
 	 items.add(new Equiptment(160,0,2, "a rusted shield"));
-	 items.add(new Equiptment(200,0,2, "a trashcan lid"));
+	 items.add(new Equiptment(200,0,2, "a trashcan lid from the back alley"));
 	 items.add(new Equiptment(400,0,2, "an overshield"));
-	 items.add(new Equiptment(140,0,2, "a woven papyrus shield"));
+	 items.add(new Equiptment(140,0,2, "a woven papyrus shield straight out of Eygpt"));
 	 items.add(new Equiptment(120,0,2, "a frisbee"));
-	 items.add(new Equiptment(180,0,2, "a pane of glass"));
+	 items.add(new Equiptment(180,0,2, "a pane of glass from your local hardware store"));
 	 //armor
 	 items.add(new Equiptment(10,1,1, "simple armor"));
 	 items.add(new Equiptment(600,7,1, "Completely Ridiculous Ultimate God Power Armor"));
-	 items.add(new Equiptment(90,2,1, "a rain coat"));
+	 items.add(new Equiptment(90,2,1, "a rain coat from Good Will"));
 	 items.add(new Equiptment(120,2,1, "chainmail"));
-	 items.add(new Equiptment(200,3,1, "a iron armor"));
-	 items.add(new Equiptment(400,3,1, "a diamond armor"));
-	 items.add(new Equiptment(150,2,1, "a leather armor"));
+	 items.add(new Equiptment(200,3,1, "iron armor"));
+	 items.add(new Equiptment(400,3,1, "diamond armor from Zales"));
+	 items.add(new Equiptment(150,2,1, "leather armor from the local dairy farm"));
 	 items.add(new Equiptment(70,5,1, "chest hair"));
 	 items.add(new Equiptment(100,2,1, "a trashcan chest plate"));
 		//item instantiation // 30 to start
