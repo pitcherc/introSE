@@ -36,7 +36,7 @@ public class Enemy implements Serializable{
 	}
 	
 	public int attack(){
-		return (int)(((double)(power)) * 3.3);		
+		return (int)(((double)(power)) * (5 + (((double)(r.nextInt(15)+10)) / 10)));		
 	}
 	
 	public void take(int damage){

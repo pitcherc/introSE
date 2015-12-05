@@ -42,6 +42,8 @@ public class Engine implements Serializable{
 		int bx = r.nextInt(3) + 6;
 		int by = r.nextInt(3) + 6;
 		floor[bx][by].empty();
+		floor[bx][by].setEnemy(new Enemy(1,1,1));
+		System.out.println("finalboss -> " + bx +"," + by);
 		floor[bx][by].setFinal();
 		
 	}	

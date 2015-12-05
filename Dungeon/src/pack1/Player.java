@@ -132,7 +132,7 @@ public class Player implements Serializable{
 	}
 	
 	public int attack(){
-		return (int)(((double)(power)) * 1.3);
+		return (int)(((double)(power)) * (1 + (((double)(r.nextInt(5)+5)) / 10)));
 	}
 
 	public int getHealth() {
