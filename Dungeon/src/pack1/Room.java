@@ -10,9 +10,13 @@ public class Room implements Serializable{
 	
 	private Chest chest;
 	
+	private boolean opened;
+	
 	private boolean isVisited;
 	
 	Room(){
+		Chest c = null;
+		opened = false;
 		enemy = null;
 		chest = null;
 	}
@@ -44,8 +48,12 @@ public class Room implements Serializable{
 		return enemy;
 	}
 	
-	Chest getChest(){
-		return chest;
+	void gereateChest(){
+		chest = new Chest();
+	}
+	
+	Equiptment open(){
+		return chest.open();
 	}
 	
 	/*****************************************************

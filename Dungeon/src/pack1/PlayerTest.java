@@ -91,30 +91,30 @@ public class PlayerTest {
 		
 	}
 	
-	@Test
-	public void testEquipt(){
-		Player p = new Player();
-		Equiptment e = new Equiptment(30,456,11);
-		Equiptment e2 = new Equiptment(46545,76543,45654);
-		
-		int ph = p.getMax();
-		int pp = p.getPower();
-		int ps = p.getSpeed();
-		
-		p.equipt(e);
-		
-		assertTrue(ph == p.getMax() - e.getHealth());
-		assertTrue(pp == p.getPower() - e.getPower());
-		assertTrue(ps == p.getSpeed() - e.getSpeed());
-		
-		p.equipt(e2);
-		
-		assertTrue(ph == p.getMax() - e.getHealth());
-		assertTrue(pp == p.getPower() - e.getPower());
-		assertTrue(ps == p.getSpeed() - e.getSpeed());
-		
-	}
-	
+//	@Test
+//	public void testEquipt(){
+//		Player p = new Player();
+//		Equiptment e = new Equiptment(30,456,11);
+//		Equiptment e2 = new Equiptment(46545,76543,45654);
+//		
+//		int ph = p.getMax();
+//		int pp = p.getPower();
+//		int ps = p.getSpeed();
+//		
+//		p.equipt(e);
+//		
+//		assertTrue(ph == p.getMax() - e.getHealth());
+//		assertTrue(pp == p.getPower() - e.getPower());
+//		assertTrue(ps == p.getSpeed() - e.getSpeed());
+//		
+//		p.equipt(e2);
+//		
+//		assertTrue(ph == p.getMax() - e.getHealth());
+//		assertTrue(pp == p.getPower() - e.getPower());
+//		assertTrue(ps == p.getSpeed() - e.getSpeed());
+//		
+//	}
+//	
 	@Test
 	public void damageTest(){
 		
