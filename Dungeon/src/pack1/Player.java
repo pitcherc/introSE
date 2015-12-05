@@ -30,6 +30,10 @@ public class Player implements Serializable{
 	
 	private boolean hasArmor;
 	
+	Equiptment sword;
+	Equiptment shield;
+	Equiptment armor;
+	
 	Random r;
 
 	Player(){
@@ -47,9 +51,9 @@ public class Player implements Serializable{
 		configItems();
 		hasWeapon = false;
 		hasArmor = false;
-		Equiptment sword = null;
-		Equiptment shield = null;
-		Equiptment armor = null;
+		sword = null;
+		shield = null;
+		armor = null;
 	}
 
 
@@ -78,18 +82,48 @@ public class Player implements Serializable{
 	}
 
 	void equipt(Equiptment e){
-		if(equip != null){
-			curMaxHealth -= equip.getHealth();
-			power -= equip.getPower();
-			speed -= equip.getSpeed();
+		boolean[] type = e.type;
+		if(type[0] == true){
+			if(sword == null){
+				sword = e;
+				power += e.getPower();
+			}
+			else{
+				power -= sword.getPower();
+				sword = e;
+				power += e.getPower();	
+			}
 		}
-		equip = e;
-		curMaxHealth += equip.getHealth();
-		power += equip.getPower();
-		speed += equip.getSpeed();
-
-		if(health > curMaxHealth){	
-			health = curMaxHealth;
+		else if(type[1] == true){
+			if(armor == null){
+				armor = e;
+				power += e.getPower();
+				curMaxHealth += e.getHealth();
+				health += e.getHealth();
+			}
+			else{
+				power -= armor.getPower();
+				curMaxHealth -= armor.getHealth();
+				health -= armor.getHealth();
+				armor = e;
+				power += e.getPower();
+				curMaxHealth += e.getHealth();
+				health += e.getHealth();	
+			}
+		}
+		else if(type[2] == true){
+			if(shield == null){
+				shield = e;
+				curMaxHealth += e.getHealth();
+				health += e.getHealth();
+			}
+			else{
+				curMaxHealth -= shield.getHealth();
+				health -= shield.getHealth();
+				sword = e;
+				curMaxHealth += e.getHealth();	
+				health += e.getHealth();
+			}
 		}
 	}
 	
@@ -98,7 +132,7 @@ public class Player implements Serializable{
 	}
 	
 	public int attack(){
-		return power + r.nextInt(power)/2;
+		return (int)(((double)(power)) * 1.3);
 	}
 
 	public int getHealth() {
