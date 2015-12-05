@@ -14,11 +14,14 @@ public class Room implements Serializable{
 	
 	private boolean isVisited;
 	
+	private boolean isBoss;
+	
 	Room(){
 		Chest c = null;
 		opened = false;
 		enemy = null;
 		chest = null;
+		isBoss = false;
 	}
 	 
 	void empty(){
@@ -34,6 +37,12 @@ public class Room implements Serializable{
 			}
 		}
 		return false;
+	}
+	boolean isFinal(){
+		return isBoss;
+	}
+	void setFinal(){
+		isBoss = true;
 	}
 	
 	void setEnemy(Enemy e){
