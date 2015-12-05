@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -80,41 +79,41 @@ public class Engine implements Serializable{
 			player.move(udrl);
 			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
 			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
-				return "You move north and encounter " + finalBoss();
+				return "You move north and encounter\n" + finalBoss();
 			}
 			else{
-				return "You move north and encounter " + explore();
+				return "You move north and encounter\n" + explore();
 			}
 		}
 		else if(udrl == 'd' && player.getPos().getX() >0){
 			player.move(udrl);
 			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
 			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
-				return "You move south and encounter " + finalBoss();
+				return "You move south and encounter\n" + finalBoss();
 			}
 			else{
 
-				return "You move south and encounter " + explore();
+				return "You move south and encounter\n" + explore();
 			}
 		}
 		else if(udrl == 'r' && player.getPos().getY() <9){
 			player.move(udrl);
 			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
 			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
-				return "You move east and encounter " + finalBoss();
+				return "You move east and encounter\n" + finalBoss();
 			}
 			else{
-				return "You move east and encounter " + explore();
+				return "You move east and encounter\n" + explore();
 			}
 		}
 		else if(udrl == 'l' && player.getPos().getY() >0){
 			player.move(udrl);
 			floor[player.getPos().getX()][player.getPos().getY()].setVisited(true);
 			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
-				return "You move west and encounter " + finalBoss();
+				return "You move west and encounter\n" + finalBoss();
 			}
 			else{
-				return "You move west and encounter " + explore();
+				return "You move west and encounter\n" + explore();
 			}
 		}
 		else{
@@ -136,7 +135,7 @@ public class Engine implements Serializable{
 		return floor;
 	}
 
-	public String openChest(){
+	public String openChest(int type){
 		if(floor[player.getPos().getX()][player.getPos().getY()].hasChest())
 		{
 			int i = r.nextInt(20);
@@ -146,7 +145,7 @@ public class Engine implements Serializable{
 				return "The chest turned out to be \n trapped! You were severly damaged!\n";
 			}
 			else{
-				Equiptment found = floor[player.getPos().getX()][player.getPos().getY()].open();
+				Equiptment found = floor[player.getPos().getX()][player.getPos().getY()].open(type);
 				player.equipt(found);
 				return "You found " + found.name + "!";
 			}

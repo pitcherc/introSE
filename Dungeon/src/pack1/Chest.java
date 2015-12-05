@@ -56,9 +56,16 @@ public class Chest implements Serializable{
 	}
 	
 	
-	public Equiptment open(){
-			
-			return items.get(r.nextInt(items.size()));
-	}
+	public Equiptment open(int type){
 
+		if(type == 0){
+			return items.get(r.nextInt(12));
+		}
+		else if(type == 0){
+			return items.get(r.nextInt(10) + 12);
+		}
+		else {
+			return items.get(r.nextInt(12) + 22);
+		}
+	}
 }

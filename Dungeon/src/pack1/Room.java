@@ -70,11 +70,11 @@ public class Room implements Serializable{
 		}
 	}
 	
-	Equiptment open(){
+	Equiptment open(int type){
 		if(!(opened))
 		{
 			opened = true;
-			return chest.open();
+			return chest.open(type);
 		}
 		else
 		{
