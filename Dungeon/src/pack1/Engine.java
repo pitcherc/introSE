@@ -48,7 +48,7 @@ public class Engine implements Serializable{
 			Position p = list.get(i);
 			if(p.getX() != 9 && p.getY() != 9){
 				if(j == 1){
-					//doChest();	
+					floor[p.getX()][p.getY()].gereateChest();	
 				}
 				else if (j > 1 && j <9){
 					floor[p.getX()][p.getY()].setEnemy(new Enemy()); 

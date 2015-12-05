@@ -52,6 +52,15 @@ public class Room implements Serializable{
 		chest = new Chest();
 	}
 	
+	public boolean hasChest(){
+		if(chest == null){
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
 	Equiptment open(){
 		if(!(opened))
 		{
