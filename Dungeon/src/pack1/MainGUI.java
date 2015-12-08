@@ -1,25 +1,34 @@
-package pack1;
+package package1;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javafx.application.Application;
 
 import javafx.geometry.Pos;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**********************************************************************
@@ -71,7 +80,7 @@ public class MainGUI extends Application{
 	private Button potion;
 
 	/**A button to power up**/
-	private Button powerup;
+	private Button openchest;
 
 	/**A button to attack**/
 	private Button attack;
@@ -119,12 +128,6 @@ public class MainGUI extends Application{
 		/**This won't be nessecary once we have the game object up
 		 * Hence this is just a test of the array list inventory display
 		 **/
-		//        		game = new ArrayList<String>();
-		//        		game.add("Scimitar");
-		//        		game.add("Cake");
-		//        		game.add("Bannas");
-		//        		game.add("Keys");
-		//        		game.add("Long Sword");
 
 		BorderPane outmostborder = new BorderPane();
 		mnuBar = new MenuBar();
@@ -165,10 +168,11 @@ public class MainGUI extends Application{
 		gameStatus.setMaxHeight(250);
 		gameStatus.setMaxWidth(300);
 
-		map = new Image("http://www.cis.gvsu.edu/~nandigaj/Jagadeesh_Nandigam.jpg",100,0,false,false);
-		ImageView view = new ImageView(map);
+//		map = new Image("http://www.cis.gvsu.edu/~nandigaj/Jagadeesh_Nandigam.jpg",100,0,false,false);
+		PlayerEquipment equip = new PlayerEquipment(game.getPlayer());
+//		ImageView view = new ImageView();
 
-		rightLayout.getChildren().addAll(view, gameStatus);
+		rightLayout.getChildren().addAll(equip.setEquipScreen(game.getPlayer()), gameStatus);
 		rightLayout.setCenterShape(true);
 		rightLayout.setSpacing(50);
 		rightLayout.setAlignment(Pos.CENTER);
@@ -266,7 +270,7 @@ public class MainGUI extends Application{
 
 		inventory = new Button("Inventory");
 		inventory.setMinSize(100, 50);
-		//		inventory.setOnAction(action -> Inventory.display("Inventory", game));
+//		inventory.setOnAction(action -> Inventory.display("Inventory" ));
 		centerbuttonpanel.getChildren().add(inventory);
 		GridPane.setConstraints(inventory, 0,0);
 
@@ -280,11 +284,22 @@ public class MainGUI extends Application{
 		GridPane.setConstraints(potion, 1, 0);
 
 		//Setting up the Level up Button
-		powerup = new Button("Powa UP");
-		powerup.setMinSize(100, 50);
-		powerup.setOnAction(action -> System.out.println("LEVEL UP BRUH!"));
-		centerbuttonpanel.getChildren().add(powerup);
-		GridPane.setConstraints(powerup, 0, 1);
+		openchest = new Button("Open Chest");
+		openchest.setMinSize(100, 50);
+		openchest.setOnAction(action -> {
+			//check if there's a chest.
+			if(game.getFloor()[game.getPlayer().getPos().getX()][game.getPlayer().getPos().getY()].hasChest()){
+				int i = MainGUI.getUserSelection();
+				//not sure what to do with the int from here.
+			}else{
+				Alert al = new Alert(AlertType.INFORMATION, "Whoops no Chest");
+				al.setHeaderText("Sorry...");
+				al.showAndWait();
+			}
+		}
+		);
+		centerbuttonpanel.getChildren().add(openchest);
+		GridPane.setConstraints(openchest, 0, 1);
 
 		//The attack Button, for stabbing things...
 		attack = new Button("Attack");
@@ -387,6 +402,42 @@ public class MainGUI extends Application{
 		gameStatus.setText("Loaded in a previous game state \n");
 		centerMap.setRooms(game.getFloor());
 		centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
+	}
+	
+	private static int getUserSelection(){
+		Stage window = new Stage();
+		VBox layout = new VBox();
+		Scene scene = new Scene(layout, 100, 80);
+		
+		ToggleGroup group = new ToggleGroup();
+		RadioButton rb1 = new RadioButton("Armor");
+		RadioButton rb2 = new RadioButton("Weapon");
+		RadioButton rb3 = new RadioButton("Other");
+		
+		//armor id
+		rb1.setId("0");
+		//weapon id
+		rb2.setId("1");
+		//other id
+		rb3.setId("2");
+		
+		Button done = new Button("Done");
+		done.setMaxWidth(Double.MAX_VALUE);
+		
+		done.setOnAction(action->{
+			window.close();
+		});
+		
+		rb1.setToggleGroup(group);
+		rb2.setToggleGroup(group);
+		rb3.setToggleGroup(group);
+		
+		layout.getChildren().addAll(rb1, rb2, rb3, done);
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.setScene(scene);
+		window.showAndWait();
+		//so much jank.
+		return Integer.parseInt(((RadioButton) group.getSelectedToggle()).getId());
 	}
 
 	/*****************************************************************************
