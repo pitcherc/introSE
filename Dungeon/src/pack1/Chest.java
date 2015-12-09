@@ -1,4 +1,4 @@
-package pack1;
+package package1;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ public class Chest implements Serializable{
 
 	private static final long serialVersionUID = 2330291883417118995L;
 	
-	ArrayList<Equiptment> items = new ArrayList();
+	ArrayList<Equiptment> items;
 
 	Random r;
 
@@ -29,8 +29,8 @@ public class Chest implements Serializable{
 	 items.add(new Equiptment(0,4,0, "a simple sword"));
 	 items.add(new Equiptment(0,4,0, "a barbwire whip"));
 	 items.add(new Equiptment(0,7,0, "a power fist from Fallout"));
-	 items.add(new Equiptment(0,0,2, "old lady denchers"));
-	 items.add(new Equiptment(0,1,1, "a ceiling fan blade"));
+	 items.add(new Equiptment(0,0,0, "old lady denchers"));
+	 items.add(new Equiptment(0,1,0, "a ceiling fan blade"));
 	 //shields
 	 items.add(new Equiptment(10,0,2, "a paper plate"));
 	 items.add(new Equiptment(1000,0,2, "a Ulitmate God Shield"));
@@ -55,17 +55,43 @@ public class Chest implements Serializable{
 		r = new Random();
 	}
 	
-	
-	public Equiptment open(int type){
-
-		if(type == 0){
-			return items.get(r.nextInt(12));
+	//generates equiptment based on the type bassed in.
+	/******************************************************************
+	 * Generates an item based on the type provided
+	 * @param int type 
+	 * 0 = weapon, 1 = armor, 2 = shield.
+	 * @return
+	 * The equiptment that was generated from the chest.
+	 *****************************************************************/
+	public Equiptment generateItem(int type){
+		Random r = new Random();
+		int i = r.nextInt(items.size());
+		
+		if(items.get(i).getType()[type]){
+			return items.get(i);
 		}
-		else if(type == 0){
-			return items.get(r.nextInt(10) + 12);
+		
+		while(items.get(i).getType()[type] == false){
+			i = r.nextInt(items.size());
+			
+			if(items.get(i).getType()[type]){
+				return items.get(i);
+			}
 		}
-		else {
-			return items.get(r.nextInt(12) + 22);
-		}
+		System.out.println("returning null " + i);
+		return null;
 	}
+	
+	
+	public Equiptment open(){
+			
+			return items.get(r.nextInt(items.size()));
+	}
+	
+//	public static void main(String args[]){
+//		Chest chest = new Chest();
+//		//
+//		System.out.println(chest.generateItem(2).name);
+//	}
+
 }
