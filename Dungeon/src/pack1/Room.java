@@ -1,4 +1,4 @@
-package pack1;
+package package1;
 
 import java.io.Serializable;
 
@@ -17,7 +17,6 @@ public class Room implements Serializable{
 	private boolean isBoss;
 	
 	Room(){
-		Chest c = null;
 		opened = false;
 		enemy = null;
 		chest = null;
@@ -38,6 +37,7 @@ public class Room implements Serializable{
 		}
 		return false;
 	}
+	
 	boolean isFinal(){
 		return isBoss;
 	}
@@ -57,6 +57,10 @@ public class Room implements Serializable{
 		return enemy;
 	}
 	
+	Chest getChest(){
+		return chest;
+	}
+	
 	void gereateChest(){
 		chest = new Chest();
 	}
@@ -70,11 +74,11 @@ public class Room implements Serializable{
 		}
 	}
 	
-	Equiptment open(int type){
+	Equiptment open(){
 		if(!(opened))
 		{
 			opened = true;
-			return chest.open(type);
+			return chest.open();
 		}
 		else
 		{
@@ -89,6 +93,11 @@ public class Room implements Serializable{
 	 ***************************************************/
 	void setVisited(boolean pVisit){
 		this.isVisited = true;
+	}
+	
+	boolean isOpened()
+	{
+		return opened;
 	}
 	
 	/******************************************************************
