@@ -1,4 +1,4 @@
-package pack1;
+package package1;
 
 import java.io.File;
 
@@ -131,38 +131,64 @@ public class PlayerEquipment {
 		helmimgview.setPreserveRatio(true);
 		helmimgview.setSmooth(true);
 		helmimgview.setCache(true);
+		
+		File shieldfile =  new File("/Users/ben/Desktop/Images/shield.png");
+		Image shieldig = new Image(shieldfile.toURI().toString());
+		ImageView shieldimgview = new ImageView(shieldig);
+		
+		shieldimgview.setFitHeight(50);
+		shieldimgview.setPreserveRatio(true);
+		shieldimgview.setSmooth(true);
+		shieldimgview.setCache(true);
 
 		GridPane panel = new GridPane();
 
-		panel.getChildren().addAll(
-				swordimgview, 
-				blankimageview, 
-				helmimgview, 
+		panel.getChildren().addAll( 
+				blankimageview,  
 				blankimageview1, 
 				blankimageview2, 
-				blankimageview3, 
 				blankimageview4,
 				blankimageview5,
 				blankimageview6
-			);
+		);
 
 		//the top right of the equip screen.
 		GridPane.setConstraints(blankimageview, 0, 0);
 
 		//the top middle of the equip screen.
-		GridPane.setConstraints(helmimgview, 1 , 0);
+		if(player.getArmor() != null){
+			panel.getChildren().add(helmimgview);
+			GridPane.setConstraints(helmimgview, 1 , 0);
+		}else{
+			panel.getChildren().add(blankimageview7);
+			GridPane.setConstraints(blankimageview7, 1 , 0);
+		}
 
 		//the top right of the equip screen.
 		GridPane.setConstraints(blankimageview1, 2 ,0);
 
-		//the middle left of the equip screen.
-		GridPane.setConstraints(blankimageview2,0,1);
+		//the middle of the equip screen.
+		GridPane.setConstraints(blankimageview2,1,1);
 
-		//the middle of the equip screen
-		GridPane.setConstraints(blankimageview3, 1,1);
+		
+		//the middle left of the equip screen.
+		if(player.getShield() != null){
+			panel.getChildren().add(shieldimgview);
+			GridPane.setConstraints(shieldimgview, 0,1);
+		}else{
+			panel.getChildren().add(blankimageview3);
+			GridPane.setConstraints(blankimageview3,0,1);
+		}
 
 		//the middle right of the equip screen
-		GridPane.setConstraints(swordimgview, 2,1);
+		if(player.getSword() != null){
+			panel.getChildren().add(swordimgview);
+			GridPane.setConstraints(swordimgview, 2,1);
+		}else{
+			panel.getChildren().add(blankimageview8);
+			GridPane.setConstraints(blankimageview8, 2,1);
+		}
+		
 
 		//the bottom left of the equip screen
 		GridPane.setConstraints(blankimageview4, 0, 2);
