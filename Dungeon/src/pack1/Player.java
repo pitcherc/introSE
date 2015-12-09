@@ -1,4 +1,4 @@
-package pack1;
+package package1;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -127,6 +127,42 @@ public class Player implements Serializable{
 		}
 	}
 	
+	public Equiptment getSword() {
+		return sword;
+	}
+
+
+
+	public Equiptment getShield() {
+		return shield;
+	}
+
+
+
+	public Equiptment getArmor() {
+		return armor;
+	}
+
+
+
+	public void setSword(Equiptment sword) {
+		this.sword = sword;
+	}
+
+
+
+	public void setShield(Equiptment shield) {
+		this.shield = shield;
+	}
+
+
+
+	public void setArmor(Equiptment armor) {
+		this.armor = armor;
+	}
+
+
+
 	public void take(int damage){
 		health -= damage;
 	}
