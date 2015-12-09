@@ -247,17 +247,17 @@ public class MainGUI extends Application{
 			}
 		});
 
-		centerButton = new Button(""+(char)8482);
-		centerButton.setMaxWidth(Double.MAX_VALUE);
-		centerButton.setMaxHeight(Double.MAX_VALUE);
-		centerButton.setOnAction(action ->{
-			System.out.println("The button works.");
-		});
+//		centerButton = new Button(""+(char)8482);
+//		centerButton.setMaxWidth(Double.MAX_VALUE);
+//		centerButton.setMaxHeight(Double.MAX_VALUE);
+//		centerButton.setOnAction(action ->{
+//			System.out.println("The button works.");
+//		});
 
 		btnPanel.setAlignment(Pos.CENTER);
 
-		btnPanel.getChildren().addAll(upArrow,leftArrow,rightArrow, downArrow,centerButton);
-		GridPane.setConstraints(centerButton, 1, 1);
+		btnPanel.getChildren().addAll(upArrow,leftArrow,rightArrow, downArrow);
+//		GridPane.setConstraints(centerButton, 1, 1);
 		GridPane.setConstraints(upArrow, 1, 0);
 		GridPane.setConstraints(leftArrow, 0, 1);
 		GridPane.setConstraints(rightArrow, 2, 1);
@@ -270,11 +270,11 @@ public class MainGUI extends Application{
 		centerbuttonpanel.setVgap(25);
 		centerbuttonpanel.setHgap(25);
 
-		inventory = new Button("Inventory");
-		inventory.setMinSize(100, 50);
-//		inventory.setOnAction(action -> Inventory.display("Inventory" ));
-		centerbuttonpanel.getChildren().add(inventory);
-		GridPane.setConstraints(inventory, 0,0);
+//		inventory = new Button("Inventory");
+//		inventory.setMinSize(100, 50);
+////		inventory.setOnAction(action -> Inventory.display("Inventory" ));
+//		centerbuttonpanel.getChildren().add(inventory);
+//		GridPane.setConstraints(inventory, 0,0);
 
 		//Later change to the amount of potions remaining for the player
 		potion = new Button("Potion(" + game.getPotions() + ")");
@@ -283,7 +283,7 @@ public class MainGUI extends Application{
 			callPotion(game);
 		});
 		centerbuttonpanel.getChildren().add(potion);
-		GridPane.setConstraints(potion, 1, 0);
+		GridPane.setConstraints(potion, 2, 0);
 
 		//Setting up the Level up Button
 		openchest = new Button("Open Chest");
@@ -304,7 +304,7 @@ public class MainGUI extends Application{
 		}
 		);
 		centerbuttonpanel.getChildren().add(openchest);
-		GridPane.setConstraints(openchest, 0, 1);
+		GridPane.setConstraints(openchest, 0, 0);
 
 		//The attack Button, for stabbing things...
 		attack = new Button("Attack");
@@ -338,7 +338,9 @@ public class MainGUI extends Application{
 		});
 		
 		centerbuttonpanel.getChildren().add(attack);
-		GridPane.setConstraints(attack, 1, 1);
+		GridPane.setConstraints(attack, 1, 0);
+		
+		centerbuttonpanel.setAlignment(Pos.TOP_CENTER);
 
 		//Setting up the right layout for player health
 		//Also used for monster health
