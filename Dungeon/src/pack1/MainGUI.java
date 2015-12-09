@@ -112,6 +112,8 @@ public class MainGUI extends Application{
 	
 	/****/
 	private Engine game;
+	
+	private VBox rightLayout;
 
 	public static void main(String args[]){
 		launch(args);
@@ -163,7 +165,7 @@ public class MainGUI extends Application{
 		mnuBar.getMenus().add(file);
 		outmostborder.setTop(mnuBar);
 
-		VBox rightLayout = new VBox(20);
+		rightLayout = new VBox(20);
 		gameStatus = new TextArea("Game Status\n");
 		gameStatus.setMaxHeight(250);
 		gameStatus.setMaxWidth(300);
@@ -290,7 +292,10 @@ public class MainGUI extends Application{
 			//check if there's a chest.
 			if(game.getFloor()[game.getPlayer().getPos().getX()][game.getPlayer().getPos().getY()].hasChest()){
 				int i = MainGUI.getUserSelection();
-				//not sure what to do with the int from here.
+				game.setPlayerEquipment(i);
+				centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
+				rightLayout.getChildren().remove(0);
+				rightLayout.getChildren().add(0,equip.setEquipScreen(game.getPlayer()));
 			}else{
 				Alert al = new Alert(AlertType.INFORMATION, "Whoops no Chest");
 				al.setHeaderText("Sorry...");
@@ -309,8 +314,18 @@ public class MainGUI extends Application{
 			gameStatus.appendText(game.attack());
 			pHealth.setProgress(((double)game.getPlayerHealth())/
 					((double)game.getPlayerMaxHealth()));
+			
 			mHealth.setProgress(((double)game.getEnemy().getHealth())/
 					((double)game.getEnemy().getMaxH()));
+			//checks if maps
+			
+//			if(game.getFloor()[game.getPlayer().getPos().getX()]
+//					[game.getPlayer().getPos().getY()].
+//					isFinal()){
+//				mHealth.setProgress(((double)game.getEnemy().getHealth())/
+//						((double)game.get().getMaxH()));
+//			}
+//			
 			
 			centerMap.setRooms(game.getFloors());
 			if(game.getEnemy().getHealth() <= 0){
@@ -321,6 +336,7 @@ public class MainGUI extends Application{
 				movable = true;
 			}
 		});
+		
 		centerbuttonpanel.getChildren().add(attack);
 		GridPane.setConstraints(attack, 1, 1);
 
@@ -398,10 +414,13 @@ public class MainGUI extends Application{
 			game.loadGame(file.getAbsolutePath());
 		}
 		
+		PlayerEquipment equip = new PlayerEquipment(game.getPlayer());
 		gameStatus.clear();
 		gameStatus.setText("Loaded in a previous game state \n");
 		centerMap.setRooms(game.getFloor());
 		centerlayout.setCenter(centerMap.updateMap(game.getPlayer()));
+		rightLayout.getChildren().remove(0);
+		rightLayout.getChildren().add(0, equip.setEquipScreen(game.getPlayer()));
 	}
 	
 	private static int getUserSelection(){
@@ -410,15 +429,15 @@ public class MainGUI extends Application{
 		Scene scene = new Scene(layout, 100, 80);
 		
 		ToggleGroup group = new ToggleGroup();
-		RadioButton rb1 = new RadioButton("Armor");
-		RadioButton rb2 = new RadioButton("Weapon");
-		RadioButton rb3 = new RadioButton("Other");
+		RadioButton rb1 = new RadioButton("Sword");
+		RadioButton rb2 = new RadioButton("Armor");
+		RadioButton rb3 = new RadioButton("Shield");
 		
-		//armor id
+		//sword id
 		rb1.setId("0");
-		//weapon id
+		//amor id
 		rb2.setId("1");
-		//other id
+		// id
 		rb3.setId("2");
 		
 		Button done = new Button("Done");
@@ -437,6 +456,9 @@ public class MainGUI extends Application{
 		window.setScene(scene);
 		window.showAndWait();
 		//so much jank.
+		if((RadioButton)group.getSelectedToggle() == null){
+			return -1;
+		}
 		return Integer.parseInt(((RadioButton) group.getSelectedToggle()).getId());
 	}
 
