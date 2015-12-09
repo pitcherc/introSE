@@ -17,6 +17,49 @@ public class PlayerTest {
 		assertTrue(p.getPower() > 0);
 		assertTrue(p.getPack().size() == 3);
 	}
+	
+	@Test
+	public void testGetHealth(){
+		Player p = new Player();
+		assertTrue(p.getHealth() == p.getMax());
+	}
+	
+	@Test
+	public void testGetLevel(){
+		Player p = new Player();
+		assertTrue(p.getLevel() == 1);
+	}
+	
+	@Test
+	public void testGetPotions(){
+		Player p = new Player();
+		assertTrue(p.getPotions() == 4);
+	}
+	
+	@Test
+	public void testGetPosX(){
+		Player p = new Player();
+		assertTrue(p.getPos().getX() == 0);
+	}
+	
+	@Test
+	public void testGetPosY(){
+		Player p = new Player();
+		assertTrue(p.getPos().getY()==0);
+	}
+	
+	@Test
+	public void testGetPower(){
+		Player p = new Player();
+		assertTrue(p.getPower() > 0);
+	}
+	
+	@Test
+	public void testGetPack(){
+		Player p = new Player();
+		assertTrue(p.getPack().size()==3);
+	}
+	
 	@Test
 	public void testMove(){
 		Player p = new Player();
@@ -92,41 +135,17 @@ public class PlayerTest {
 	}
 	
 //	@Test
-//	public void testEquipt(){
+//	public void damageTest(){
+//		
 //		Player p = new Player();
-//		Equiptment e = new Equiptment(30,456,11);
-//		Equiptment e2 = new Equiptment(46545,76543,45654);
+//		int damage = 1;
 //		
-//		int ph = p.getMax();
-//		int pp = p.getPower();
-//		int ps = p.getSpeed();
+//		for(int i = 0 ; i < 20 ; i++){
+//			p.take(damage);
+//			assertTrue(p.getHealth() == p.getMax() - (i+ 1));
+//		}
 //		
-//		p.equipt(e);
-//		
-//		assertTrue(ph == p.getMax() - e.getHealth());
-//		assertTrue(pp == p.getPower() - e.getPower());
-//		assertTrue(ps == p.getSpeed() - e.getSpeed());
-//		
-//		p.equipt(e2);
-//		
-//		assertTrue(ph == p.getMax() - e.getHealth());
-//		assertTrue(pp == p.getPower() - e.getPower());
-//		assertTrue(ps == p.getSpeed() - e.getSpeed());
+//		assertTrue(p.getHealth() == 0);
 //		
 //	}
-//	
-	@Test
-	public void damageTest(){
-		
-		Player p = new Player();
-		int damage = 1;
-		
-		for(int i = 0 ; i < 20 ; i++){
-			p.take(damage);
-			assertTrue(p.getHealth() == p.getMax() - (i+ 1));
-		}
-		
-		assertTrue(p.getHealth() == 0);
-		
-	}
 }
