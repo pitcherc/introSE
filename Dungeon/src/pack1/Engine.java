@@ -1,4 +1,4 @@
-package pack1;
+package package1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,6 +8,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Engine implements Serializable{
 
@@ -43,7 +46,6 @@ public class Engine implements Serializable{
 		int by = r.nextInt(3) + 6;
 		floor[bx][by].empty();
 		floor[bx][by].setEnemy(new Enemy(1,1,1));
-		System.out.println("finalboss -> " + bx +"," + by);
 		floor[bx][by].setFinal();
 
 	}	
@@ -54,15 +56,36 @@ public class Engine implements Serializable{
 			int  j = r.nextInt(10) + 1;
 			Position p = list.get(i);
 			if(p.getX() != 9 && p.getY() != 9){
-				if(j == 1){
+				if(j == 1 || j == 2){
 					floor[p.getX()][p.getY()].gereateChest();	
+					if(floor[p.getX()][p.getY()].getEnemy() != null){
+						floor[p.getX()][p.getY()].setEnemy(null);
+					}
 				}
-				else if (j > 1 && j <9){
-					floor[p.getX()][p.getY()].setEnemy(new Enemy()); 
+				else if (j > 2 && j <9){
+					if(!(floor[p.getX()][p.getY()].hasChest()))
+					{
+						floor[p.getX()][p.getY()].setEnemy(new Enemy()); 
+					}
 				}
 			}
 		}
 	}
+	
+	
+	
+	
+//	int i = r.nextInt(20);
+//
+//	if(i == 0){
+//		player.take(player.getHealth() / 2);
+//		return "The chest turned out to be \n trapped! You were severly damaged!\n";
+//	}
+//	else if(i > 0 && i < 4){
+//		int po = ((r.nextInt()) % 3) + 1; 
+//		player.addPotions(po);
+//		return "Yout opened the chest \n and found " + po + " potions!\n";
+//	}
 
 	private void configFloors(){
 
@@ -126,7 +149,8 @@ public class Engine implements Serializable{
 		r.setEnemy(new Enemy());
 		enemy = floor[player.getPos().getX()][player.getPos().getY()].getEnemy();
 		gp = GmPn.FIGHT;
-		enemy.setHealth(1000);
+		enemy.setHealth(500);
+		enemy.setMax();
 		enemy.setPower(30);
 		return "\n An enemy embrasing the essence of pure evil \n";
 	}
@@ -135,20 +159,15 @@ public class Engine implements Serializable{
 		return floor;
 	}
 
-	public String openChest(int type){
+	public String openChest(){
 		if(floor[player.getPos().getX()][player.getPos().getY()].hasChest())
 		{
-			int i = r.nextInt(20);
-
-			if(i == 0){
-				player.take(player.getHealth() / 2);
-				return "The chest turned out to be \n trapped! You were severly damaged!\n";
-			}
-			else{
-				Equiptment found = floor[player.getPos().getX()][player.getPos().getY()].open(type);
+			
+			
+				Equiptment found = floor[player.getPos().getX()][player.getPos().getY()].open();
 				player.equipt(found);
 				return "You found " + found.name + "!";
-			}
+			
 		}
 		else{
 			return "there is no chest there...\n";
@@ -173,10 +192,10 @@ public class Engine implements Serializable{
 			gp = GmPn.IDLE;
 
 			if(floor[player.getPos().getX()][player.getPos().getY()].isFinal()){
-				return "After trails and tribulations a plenty \n "
+				return "\n\n\n\n\n\n\nAfter trails and tribulations a plenty \n "
 						+ "you deal the final blow to the monster \n"
-						+ "walking homebound you bring good new for "
-						+ "your village";
+						+ "walking homebound you bring good new for\n "
+						+ "your village\n\n";
 			}
 
 			floor[player.getPos().getX()][player.getPos().getY()].empty();
@@ -194,6 +213,26 @@ public class Engine implements Serializable{
 		}
 
 		return "you dealt " + delt + " damage, and" + message ;
+	}
+	
+	/******************************************************************
+	 * Sets the players selection based on what the user selected
+	 * @param selection
+	 *****************************************************************/
+	public void setPlayerEquipment(int selection){
+		if(selection == -1){
+			return;
+		}
+		Equiptment item = 
+				floor[player.getPos().getX()][player.getPos().getY()]
+						.getChest().generateItem(selection);
+		player.equipt(item);
+		
+		floor[player.getPos().getX()][player.getPos().getY()].setChest(null);
+		
+		Alert al = new Alert(AlertType.INFORMATION, item.name);
+		al.setHeaderText("Your character is now stronger!");
+		al.showAndWait();
 	}
 
 	public String usePotion(){
@@ -255,6 +294,7 @@ public class Engine implements Serializable{
 
 		try {
 			FileInputStream fis = new FileInputStream(filepath);
+			@SuppressWarnings("resource")
 			ObjectInputStream is = new ObjectInputStream(fis);
 			Engine temp = (Engine)is.readObject();
 			//should be anything else to do here....
@@ -283,11 +323,12 @@ public class Engine implements Serializable{
 
 	private String explore(){
 		Position p = player.getPos();
-
 		enemy = floor[p.getX()][p.getY()].getEnemy();
+		
 		if(floor[p.getX()][p.getY()].hasChest()){
 			return "there is a chest, open at your own risk\n";
 		}
+		
 		if(enemy != null){
 			gp = GmPn.FIGHT;
 			enemy.setHealth((200 +(r.nextInt(100))) * (player.getLevel()));
@@ -304,6 +345,7 @@ public class Engine implements Serializable{
 	int getPlayerHealth(){
 		return player.getHealth();
 	}
+	
 
 	int getPlayerMaxHealth(){
 		return player.getMax();
@@ -322,6 +364,7 @@ public class Engine implements Serializable{
 		return gp;
 	}
 	public Enemy getEnemy(){
+		
 		if(this.enemy == null){
 			Enemy e = new Enemy(-1 , 0 , 0);
 			e.setHealth(1);
