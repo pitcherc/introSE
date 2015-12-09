@@ -377,7 +377,7 @@ public class MainGUI extends Application{
 		rightLayout.getChildren().addAll(btnPanel);
 		outmostborder.setRight(rightLayout);
 
-		Scene scene = new Scene(outmostborder,1200, 800);
+		Scene scene = new Scene(outmostborder,1000, 725);
 		window.setScene(scene);
 		window.show();
 	}
